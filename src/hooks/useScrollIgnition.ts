@@ -34,25 +34,25 @@ export function useScrollIgnition(): IgnitionState {
       const maxScroll = Math.max(1, doc.scrollHeight - window.innerHeight)
       const progress = clamp01(window.scrollY / maxScroll)
 
-      // Sky wakes across most of the page; stays dim at the very top.
-      const ignition = smoothstep(0.02, 0.78, progress)
+      // Quieter at the tippy-top, then a clear ramp through About → Services.
+      const ignition = smoothstep(0.04, 0.52, progress)
 
-      // Fuel lands as About enters the middle of the viewport.
+      // Fuel lands hard as About hits the viewport.
       const about = document.getElementById('about')
       let fuel = 0
       if (about) {
         const rect = about.getBoundingClientRect()
-        const mid = rect.top + rect.height * 0.35
+        const mid = rect.top + rect.height * 0.3
         const view = window.innerHeight
-        fuel = smoothstep(view * 0.92, view * 0.38, mid)
+        fuel = smoothstep(view * 1.05, view * 0.42, mid)
       }
 
       const contact = document.getElementById('contact')
       let finale = 0
       if (contact) {
         const rect = contact.getBoundingClientRect()
-        const mid = rect.top + rect.height * 0.25
-        finale = smoothstep(window.innerHeight * 0.95, window.innerHeight * 0.45, mid)
+        const mid = rect.top + rect.height * 0.2
+        finale = smoothstep(window.innerHeight * 1.05, window.innerHeight * 0.5, mid)
       }
 
       setState({ ignition, fuel, finale })

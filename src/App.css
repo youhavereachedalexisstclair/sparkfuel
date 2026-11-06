@@ -25,8 +25,8 @@
   height: min(55vw, 560px);
   top: -10%;
   right: -8%;
-  background: radial-gradient(circle, rgba(75, 124, 240, 0.5), transparent 70%);
-  opacity: calc(0.28 + var(--ignition, 0) * 0.4);
+  background: radial-gradient(circle, rgba(75, 124, 240, 0.55), transparent 70%);
+  opacity: calc(0.08 + var(--ignition, 0) * 0.72);
 }
 
 .glow-b {
@@ -34,9 +34,9 @@
   height: min(60vw, 640px);
   bottom: 8%;
   left: -14%;
-  background: radial-gradient(circle, rgba(200, 242, 53, 0.2), transparent 70%);
+  background: radial-gradient(circle, rgba(200, 242, 53, 0.28), transparent 70%);
   animation-delay: -4s;
-  opacity: calc(0.2 + var(--fuel, 0) * 0.35 + var(--ignition, 0) * 0.35);
+  opacity: calc(0.05 + var(--fuel, 0) * 0.55 + var(--ignition, 0) * 0.45);
 }
 
 .glow-c {
@@ -44,23 +44,24 @@
   height: min(40vw, 420px);
   top: 40%;
   left: 40%;
-  background: radial-gradient(circle, rgba(232, 237, 245, 0.08), transparent 70%);
+  background: radial-gradient(circle, rgba(232, 237, 245, 0.12), transparent 70%);
   animation-delay: -8s;
-  opacity: calc(0.25 + var(--ignition, 0) * 0.55);
+  opacity: calc(0.05 + var(--ignition, 0) * 0.7);
 }
 
 .glow-ignite {
-  width: min(90vw, 900px);
-  height: min(90vw, 900px);
+  width: min(90vw, 820px);
+  height: min(90vw, 820px);
   left: 50%;
-  bottom: -20%;
+  bottom: -24%;
   translate: -50% 0;
   background:
-    radial-gradient(circle, rgba(200, 242, 53, 0.28) 0%, transparent 55%),
-    radial-gradient(circle at 40% 40%, rgba(75, 124, 240, 0.22) 0%, transparent 60%);
-  opacity: calc(var(--finale, 0) * 0.9);
-  filter: blur(40px);
+    radial-gradient(circle, rgba(200, 242, 53, 0.18) 0%, transparent 55%),
+    radial-gradient(circle at 40% 40%, rgba(75, 124, 240, 0.2) 0%, transparent 60%);
+  opacity: calc(var(--finale, 0) * 0.55);
+  filter: blur(42px);
   animation: none;
+  transform: scale(calc(0.7 + var(--finale, 0) * 0.35));
 }
 
 .star-veil {
@@ -75,7 +76,7 @@
     radial-gradient(1px 1px at 41% 88%, rgba(232, 237, 245, 0.35), transparent),
     radial-gradient(1px 1px at 6% 44%, rgba(75, 124, 240, 0.4), transparent),
     radial-gradient(1.5px 1.5px at 52% 8%, rgba(232, 237, 245, 0.3), transparent);
-  opacity: calc(0.22 + var(--ignition, 0) * 0.75);
+  opacity: calc(0.06 + var(--ignition, 0) * 0.94);
   animation: veil-drift 22s ease-in-out infinite alternate;
 }
 
@@ -84,7 +85,7 @@
   inset: -4%;
   width: 108%;
   height: 108%;
-  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.25s ease;
   will-change: transform, opacity;
 }
 
@@ -93,8 +94,8 @@
     calc(var(--pointer-x, 0) * -14px),
     calc(var(--pointer-y, 0) * -12px),
     0
-  );
-  opacity: calc(0.12 + var(--ignition, 0) * 0.55);
+  ) scale(calc(0.92 + var(--ignition, 0) * 0.1));
+  opacity: calc(0.04 + var(--ignition, 0) * 0.85);
 }
 
 .spark-field--mid {
@@ -102,8 +103,8 @@
     calc(var(--pointer-x, 0) * -32px),
     calc(var(--pointer-y, 0) * -24px),
     0
-  );
-  opacity: calc(0.18 + var(--ignition, 0) * 0.72 + var(--fuel, 0) * 0.12);
+  ) scale(calc(0.9 + var(--ignition, 0) * 0.14 + var(--fuel, 0) * 0.04));
+  opacity: calc(0.05 + var(--ignition, 0) * 0.8 + var(--fuel, 0) * 0.2);
 }
 
 .spark-field--near {
@@ -111,8 +112,8 @@
     calc(var(--pointer-x, 0) * -56px),
     calc(var(--pointer-y, 0) * -40px),
     0
-  );
-  opacity: calc(0.2 + var(--ignition, 0) * 0.7 + var(--finale, 0) * 0.15);
+  ) scale(calc(0.88 + var(--ignition, 0) * 0.16 + var(--finale, 0) * 0.08));
+  opacity: calc(0.06 + var(--ignition, 0) * 0.82 + var(--finale, 0) * 0.1);
 }
 
 .sky-spark {
@@ -123,15 +124,15 @@
 }
 
 .sky-spark--far {
-  filter: drop-shadow(0 0 4px rgba(200, 242, 53, 0.2));
+  filter: drop-shadow(0 0 calc(3px + var(--ignition, 0) * 8px) rgba(200, 242, 53, 0.35));
 }
 
 .sky-spark--mid {
-  filter: drop-shadow(0 0 10px rgba(200, 242, 53, 0.35));
+  filter: drop-shadow(0 0 calc(6px + var(--ignition, 0) * 14px + var(--fuel, 0) * 8px) rgba(200, 242, 53, 0.5));
 }
 
 .sky-spark--near {
-  filter: drop-shadow(0 0 16px rgba(200, 242, 53, 0.55));
+  filter: drop-shadow(0 0 calc(10px + var(--ignition, 0) * 18px + var(--finale, 0) * 12px) rgba(200, 242, 53, 0.7));
 }
 
 .sky-spark--spark { color: var(--spark); }
@@ -254,35 +255,35 @@
 
 .burst-glow {
   position: absolute;
-  inset: 18%;
+  inset: 12%;
   border-radius: 50%;
   background:
-    radial-gradient(circle, rgba(200, 242, 53, 0.22) 0%, transparent 62%),
-    radial-gradient(circle at 60% 40%, rgba(75, 124, 240, 0.2) 0%, transparent 55%);
+    radial-gradient(circle, rgba(200, 242, 53, 0.32) 0%, transparent 62%),
+    radial-gradient(circle at 60% 40%, rgba(75, 124, 240, 0.24) 0%, transparent 55%);
   filter: blur(8px);
   animation: pulse 6s ease-in-out infinite;
-  opacity: calc(0.85 - var(--ignition, 0) * 0.35);
+  opacity: calc(1 - var(--ignition, 0) * 0.55);
   transform: translate3d(
     calc(var(--pointer-x, 0) * -22px),
     calc(var(--pointer-y, 0) * -16px),
     0
-  );
+  ) scale(calc(1.05 - var(--fuel, 0) * 0.2));
   transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .burst-core {
   position: absolute;
-  inset: 36%;
+  inset: 34%;
   color: var(--spark);
-  filter: drop-shadow(0 0 calc(22px + (var(--ignition, 0) * 18px)) rgba(200, 242, 53, 0.5));
+  filter: drop-shadow(0 0 calc(28px + var(--ignition, 0) * 10px) rgba(200, 242, 53, 0.65));
   animation: pulse 5.5s ease-in-out infinite;
-  opacity: calc(1 - var(--fuel, 0) * 0.35);
+  opacity: calc(1 - var(--fuel, 0) * 0.55);
   transform: translate3d(
     calc(var(--pointer-x, 0) * 18px),
     calc(var(--pointer-y, 0) * 14px),
     0
-  ) scale(calc(1.2 - (var(--ignition, 0) * 0.3)));
-  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  ) scale(calc(1.45 - var(--ignition, 0) * 0.55 - var(--fuel, 0) * 0.2));
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.35s ease;
 }
 
 .hero-stage {
@@ -455,21 +456,21 @@
   inset: 6% 4% 18%;
   border-radius: 46% 46% 28% 28%;
   background:
-    radial-gradient(circle at 50% 20%, rgba(200, 242, 53, 0.35), transparent 55%),
-    radial-gradient(circle at 70% 70%, rgba(75, 124, 240, 0.4), transparent 60%);
+    radial-gradient(circle at 50% 20%, rgba(200, 242, 53, 0.45), transparent 55%),
+    radial-gradient(circle at 70% 70%, rgba(75, 124, 240, 0.5), transparent 60%);
   filter: blur(18px);
   animation: pulse 6s ease-in-out infinite;
-  opacity: calc(0.45 + var(--fuel, 0) * 0.7);
-  transform: scale(calc(0.92 + var(--fuel, 0) * 0.12));
+  opacity: calc(0.15 + var(--fuel, 0) * 1.05);
+  transform: scale(calc(0.82 + var(--fuel, 0) * 0.28));
 }
 
 .fuel-orbit {
   position: absolute;
   z-index: 3;
-  top: -4%;
-  right: -6%;
-  width: 4.5rem;
-  height: 4.5rem;
+  top: -8%;
+  right: -10%;
+  width: 5.5rem;
+  height: 5.5rem;
   pointer-events: none;
 }
 
@@ -478,10 +479,10 @@
   height: 100%;
   color: var(--spark);
   opacity: var(--fuel, 0);
-  transform: scale(calc(0.6 + var(--fuel, 0) * 0.55));
-  filter: drop-shadow(0 0 calc(8px + var(--fuel, 0) * 20px) rgba(200, 242, 53, 0.65));
-  transition: opacity 0.35s ease, transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
-  animation: pulse 4s ease-in-out infinite;
+  transform: scale(calc(0.35 + var(--fuel, 0) * 1.05));
+  filter: drop-shadow(0 0 calc(12px + var(--fuel, 0) * 36px) rgba(200, 242, 53, 0.85));
+  transition: opacity 0.3s ease, transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  animation: pulse 3.2s ease-in-out infinite;
 }
 
 /* Crop to a lean-in bust frame so the chair pose doesn’t float midair. */
@@ -550,7 +551,8 @@
   top: 8%;
   right: 0;
   animation: float-a 6s ease-in-out infinite;
-  opacity: calc(0.35 + var(--fuel, 0) * 0.65);
+  opacity: calc(0.05 + var(--fuel, 0) * 1);
+  transform: scale(calc(0.7 + var(--fuel, 0) * 0.5));
 }
 
 .about-spark-b {
@@ -560,7 +562,8 @@
   left: -2%;
   color: var(--signal-soft);
   animation: float-b 7.5s ease-in-out infinite;
-  opacity: calc(0.3 + var(--fuel, 0) * 0.7);
+  opacity: calc(0.05 + var(--fuel, 0) * 1);
+  transform: scale(calc(0.7 + var(--fuel, 0) * 0.55));
 }
 
 .about-copy {
@@ -720,18 +723,18 @@
 .contact-bloom {
   position: absolute;
   left: 50%;
-  top: 40%;
-  width: min(90vw, 640px);
-  height: min(90vw, 640px);
+  top: 42%;
+  width: min(85vw, 560px);
+  height: min(85vw, 560px);
   translate: -50% -50%;
   border-radius: 50%;
   background:
-    radial-gradient(circle, rgba(200, 242, 53, 0.2) 0%, transparent 55%),
-    radial-gradient(circle at 60% 45%, rgba(75, 124, 240, 0.18) 0%, transparent 60%);
-  opacity: calc(var(--finale, 0) * 0.95);
-  filter: blur(6px);
+    radial-gradient(circle, rgba(200, 242, 53, 0.14) 0%, transparent 58%),
+    radial-gradient(circle at 60% 45%, rgba(75, 124, 240, 0.16) 0%, transparent 62%);
+  opacity: calc(var(--finale, 0) * 0.65);
+  filter: blur(10px);
   pointer-events: none;
-  transform: scale(calc(0.7 + var(--finale, 0) * 0.45));
+  transform: scale(calc(0.7 + var(--finale, 0) * 0.4));
 }
 
 .contact-inner {
@@ -743,13 +746,13 @@
 }
 
 .contact-spark {
-  width: calc(2.5rem + var(--finale, 0) * 1.4rem);
-  height: calc(2.5rem + var(--finale, 0) * 1.4rem);
+  width: calc(2.5rem + var(--finale, 0) * 1.1rem);
+  height: calc(2.5rem + var(--finale, 0) * 1.1rem);
   color: var(--spark);
   margin-bottom: 0.25rem;
-  filter: drop-shadow(0 0 calc(16px + var(--finale, 0) * 24px) rgba(200, 242, 53, 0.55));
+  filter: drop-shadow(0 0 calc(14px + var(--finale, 0) * 16px) rgba(200, 242, 53, 0.45));
   animation: pulse 5s ease-in-out infinite;
-  transform: scale(calc(0.9 + var(--finale, 0) * 0.25));
+  transform: scale(calc(0.9 + var(--finale, 0) * 0.2));
 }
 
 .contact .btn {
