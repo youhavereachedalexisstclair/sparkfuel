@@ -1,6 +1,6 @@
 import { useEffect, useState, type CSSProperties } from 'react'
 import alexis from './assets/brand/alexis-cutout.png'
-import wordmark from './assets/brand/wordmark-cutout.png'
+import wordmark from './assets/brand/wordmark.svg'
 import { SparkField } from './components/SparkField'
 import { SparkMark } from './components/SparkMark'
 import { useParallax } from './hooks/useParallax'
