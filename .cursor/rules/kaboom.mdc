@@ -1,0 +1,15 @@
+---
+description: KABOOM means commit current changes and push to publish
+alwaysApply: true
+---
+
+# KABOOM
+
+When the user says **KABOOM** (alone or in a message), treat it as an explicit request to:
+
+1. Commit the current relevant changes (follow the repo's commit protocol)
+2. Push to the remote to publish
+
+Do not wait for separate "commit" and "push" wording. KABOOM covers both.
+
+Still refuse destructive git actions unless separately and explicitly requested.

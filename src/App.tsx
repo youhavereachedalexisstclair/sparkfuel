@@ -39,7 +39,7 @@ const services = [
   },
   {
     title: 'Everything Else',
-    body: 'Your on-call creative co-pilot. Whether you need a sounding board, a problem-solver, or a professional Googler with great taste, I’m here to help you figure out what’s next — whatever that looks like.',
+    body: 'Your on-call creative copilot. Whether you need a sounding board, a problem-solver, or a professional Googler with great taste, I’m here to help you figure out what’s next — whatever that looks like.',
   },
 ]
 
@@ -120,7 +120,7 @@ function App() {
             <img className="hero-logo" src={wordmark} alt="Spark Fuel" />
             <h1 className="hero-headline">
               Your small business
-              <span> co-pilot.</span>
+              <span> copilot.</span>
             </h1>
             <p className="hero-lede">
               Research, design, and strategy to get your idea off the ground —
@@ -162,7 +162,7 @@ function App() {
               <p>
                 I started Spark Fuel to fill the gaps — so you can move your
                 business forward without doing it all alone. Research, design,
-                strategy, and a creative co-pilot who makes the whole thing feel
+                strategy, and a creative copilot who makes the whole thing feel
                 like you.
               </p>
             </div>
