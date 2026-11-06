@@ -123,8 +123,8 @@ function App() {
               <span> copilot.</span>
             </h1>
             <p className="hero-lede">
-              Research, design, and strategy to get your idea off the ground —
-              or give your brand a whole new look.
+              Research, brand design, websites, and strategy to get your idea
+              off the ground — or give your small business a whole new look.
             </p>
             <div className="hero-actions">
               <a className="btn btn-spark" href="#contact">
@@ -160,10 +160,10 @@ function App() {
                 Your idea is the spark. I’m the fuel that helps it catch.
               </h2>
               <p>
-                I started Spark Fuel to fill the gaps — so you can move your
-                business forward without doing it all alone. Research, design,
-                strategy, and a creative copilot who makes the whole thing feel
-                like you.
+                I started Spark Fuel to fill the gaps for small business
+                founders — so you can move forward without doing branding,
+                websites, and strategy all alone. Research, design, systems,
+                and a creative copilot who makes the whole thing feel like you.
               </p>
             </div>
           </div>
@@ -175,30 +175,40 @@ function App() {
               <SparkMark className="eyebrow-spark" />
               The burn · What I do
             </p>
-            <h2>From first spark to full launch.</h2>
+            <h2>Small business services — from first spark to full launch.</h2>
+            <p className="services-lede">
+              Strategy, brand identity, custom websites, social media, campaigns,
+              and merch — built around what your business actually needs.
+            </p>
           </div>
           <ul className="service-list">
             {services.map((service, index) => {
               const open = openService === index
+              const panelId = `service-panel-${index}`
               return (
                 <li key={service.title} className={open ? 'is-open' : ''}>
-                  <button
-                    type="button"
-                    className="service-trigger"
-                    aria-expanded={open}
-                    onClick={() => setOpenService(open ? null : index)}
-                  >
-                    <span className="service-index">
-                      <SparkMark className="service-spark" />
-                      {String(index + 1).padStart(2, '0')}
-                    </span>
-                    <span className="service-title">{service.title}</span>
-                    <span className="service-toggle" aria-hidden="true">
-                      {open ? '−' : '+'}
-                    </span>
-                  </button>
-                  <div className="service-panel" role="region" hidden={!open}>
-                    <p>{service.body}</p>
+                  <h3 className="service-heading">
+                    <button
+                      type="button"
+                      className="service-trigger"
+                      aria-expanded={open}
+                      aria-controls={panelId}
+                      onClick={() => setOpenService(open ? null : index)}
+                    >
+                      <span className="service-index">
+                        <SparkMark className="service-spark" />
+                        {String(index + 1).padStart(2, '0')}
+                      </span>
+                      <span className="service-title">{service.title}</span>
+                      <span className="service-toggle" aria-hidden="true">
+                        {open ? '−' : '+'}
+                      </span>
+                    </button>
+                  </h3>
+                  <div className="service-panel" id={panelId} role="region">
+                    <div className="service-panel-inner">
+                      <p>{service.body}</p>
+                    </div>
                   </div>
                 </li>
               )
@@ -214,10 +224,11 @@ function App() {
               <SparkMark className="eyebrow-spark" />
               Ignition
             </p>
-            <h2>Got an idea that needs fuel?</h2>
+            <h2>Got a small business idea that needs fuel?</h2>
             <p>
-              Tell me what you’re building. We’ll figure out the gaps — and
-              make something amazing together.
+              Tell me what you’re building — branding, a website, strategy, or
+              all of it. We’ll figure out the gaps and make something amazing
+              together.
             </p>
             <a className="btn btn-spark btn-lg" href="mailto:hello@sparkfuel.co">
               hello@sparkfuel.co
@@ -228,7 +239,9 @@ function App() {
 
       <footer className="footer">
         <p>© {new Date().getFullYear()} Spark Fuel</p>
-        <p>sparkfuel.co</p>
+        <p>
+          <a href="https://sparkfuel.co/">sparkfuel.co</a>
+        </p>
       </footer>
     </div>
   )

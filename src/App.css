@@ -628,6 +628,14 @@
   margin-bottom: var(--space-lg);
 }
 
+.services-lede {
+  margin: 1rem 0 0;
+  max-width: 38rem;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--mist-dim);
+}
+
 .service-list {
   list-style: none;
   margin: 0 auto;
@@ -641,6 +649,11 @@
 
 .service-list li:last-child {
   border-bottom: 1px solid var(--line);
+}
+
+.service-heading {
+  margin: 0;
+  font: inherit;
 }
 
 .service-trigger {
@@ -700,9 +713,26 @@
 }
 
 .service-panel {
-  overflow: hidden;
-  padding: 0 0 1.4rem 5.25rem;
+  display: grid;
+  grid-template-rows: 0fr;
   max-width: 42rem;
+  padding: 0 0 0 5.25rem;
+  opacity: 0;
+  transition:
+    grid-template-rows 0.35s ease,
+    opacity 0.25s ease,
+    padding-bottom 0.35s ease;
+}
+
+.service-list li.is-open .service-panel {
+  grid-template-rows: 1fr;
+  padding-bottom: 1.4rem;
+  opacity: 1;
+}
+
+.service-panel-inner {
+  overflow: hidden;
+  min-height: 0;
 }
 
 .service-panel p {
@@ -862,6 +892,10 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .service-panel {
+    transition: none;
+  }
+
   html {
     scroll-behavior: auto;
   }
