@@ -1,5 +1,5 @@
 ---
-description: KABOOM means commit current changes and push to publish
+description: KABOOM means commit, push, and deploy to Cloudflare Pages
 alwaysApply: true
 ---
 
@@ -8,8 +8,13 @@ alwaysApply: true
 When the user says **KABOOM** (alone or in a message), treat it as an explicit request to:
 
 1. Commit the current relevant changes (follow the repo's commit protocol)
-2. Push to the remote to publish
+2. Push to the GitHub remote (`origin`)
+3. Publish the live site to Cloudflare Pages:
+   - `npm run build`
+   - `npx wrangler pages deploy dist --project-name sparkfuel --commit-dirty=true`
 
-Do not wait for separate "commit" and "push" wording. KABOOM covers both.
+Cloudflare Pages for this project is **not** Git-connected, so a GitHub push alone does not update https://sparkfuel.pages.dev. The Wrangler deploy step is required.
+
+Do not wait for separate "commit", "push", or "deploy" wording. KABOOM covers all three.
 
 Still refuse destructive git actions unless separately and explicitly requested.
