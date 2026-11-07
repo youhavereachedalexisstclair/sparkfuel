@@ -7,7 +7,6 @@ import { FuelPour } from './components/FuelPour'
 import { MagneticCursor } from './components/MagneticCursor'
 import { OrbitSparks } from './components/OrbitSparks'
 import { ScrollStreaks } from './components/ScrollStreaks'
-import { ServiceIgnition } from './components/ServiceIgnition'
 import { SparkField } from './components/SparkField'
 import { SparkMark } from './components/SparkMark'
 import { WordmarkReveal } from './components/WordmarkReveal'
@@ -26,11 +25,11 @@ const services = [
   },
   {
     title: 'Smart Tools & Systems',
-    body: 'Get your operations running smoothly behind the scenes. I’ll set up Google Workspace, secure your domain, and implement tech integrations, automations, and AI tools that make your workday flow.',
+    body: 'Get your operations running smoothly behind the scenes. I’ll set up Google Workspace, secure your domain, and implement tech integrations, automations, and tools that make your workday flow.',
   },
   {
     title: 'Visual Brand Identity',
-    body: 'Design a brand that connects, stands out, and feels like you. I’ll craft your logo, color palette, typography, and brand guide — plus help refine your photo direction and tone of voice.',
+    body: 'Design a brand that connects, stands out, and feels like you. I’ll craft your logo, color palette, typography, and brand guide. I’ll also help refine your photo direction and tone of voice.',
   },
   {
     title: 'Custom Websites',
@@ -42,7 +41,7 @@ const services = [
   },
   {
     title: 'Campaigns & Content',
-    body: 'Spread the word. I plan, design, and launch campaigns across social, email, and ads — helping you show up consistently and connect with your audience.',
+    body: 'Spread the word. I plan, design, and launch campaigns across social, email, and ads. The goal is to show up consistently and connect with your audience.',
   },
   {
     title: 'Branded Merch & Materials',
@@ -50,7 +49,7 @@ const services = [
   },
   {
     title: 'Everything Else',
-    body: 'Your on-call creative copilot. Whether you need a sounding board, a problem-solver, or a professional Googler with great taste, I’m here to help you figure out what’s next — whatever that looks like.',
+    body: 'Your on-call creative copilot. Whether you need a sounding board, a problem-solver, or a professional Googler with great taste, I’m here to help you figure out what’s next, whatever that looks like.',
   },
 ]
 
@@ -82,14 +81,11 @@ function App() {
   const [openService, setOpenService] = useState<number | null>(0)
   const [ready, setReady] = useState(false)
   const navCtaRef = useMagnetic({ strength: 10, radius: 100 })
-  const heroPrimaryRef = useMagnetic({ strength: 14, radius: 130 })
-  const heroGhostRef = useMagnetic({ strength: 12, radius: 120 })
   useEffect(() => {
     const id = window.setTimeout(() => setReady(true), 40)
     return () => window.clearTimeout(id)
   }, [])
 
-  const heroProgress = Math.min(scrollY / 700, 1)
   const aboutShift = scrollY * 0.08
   const contactShift = scrollY * 0.05
   const tiltX = pointer.y * -10
@@ -128,7 +124,6 @@ function App() {
         <SparkField depth="mid" />
         <SparkField depth="near" />
         <ScrollStreaks streaks={streaks} />
-        <ServiceIgnition index={openService} active={active === 'burn'} />
       </div>
 
       <header className="topbar">
@@ -156,12 +151,10 @@ function App() {
           style={
             {
               '--parallax-mid': `${scrollY * -0.28}px`,
-              '--parallax-fade': String(1 - heroProgress * 0.35),
             } as CSSProperties
           }
         >
           <div className="hero-stage">
-            <p className="chapter-tag chapter-tag--hero">The spark</p>
             <WordmarkReveal src={wordmark} alt="Spark Fuel" className="hero-logo" />
             <h1 className="hero-headline">
               Your small business
@@ -169,25 +162,21 @@ function App() {
             </h1>
             <p className="hero-lede">
               Research, brand design, websites, and strategy to get your idea
-              off the ground — or give your small business a whole new look.
+              off the ground, or give your small business a whole new look.
             </p>
             <div className="hero-actions">
-              <a
-                ref={heroPrimaryRef}
-                className="btn btn-spark"
-                href="#contact"
-                data-magnetic
-              >
-                Start a project
-              </a>
-              <a
-                ref={heroGhostRef}
-                className="btn btn-ghost"
-                href="#services"
-                data-magnetic
-              >
-                See how I help
-              </a>
+              <div className="hero-cta-wrap">
+                <OrbitSparks />
+                <a className="btn btn-spark btn-lg" href="#contact" data-magnetic>
+                  Start a project
+                </a>
+              </div>
+              <div className="hero-cta-wrap">
+                <OrbitSparks />
+                <a className="btn btn-ghost btn-lg" href="#services" data-magnetic>
+                  See how I help
+                </a>
+              </div>
             </div>
           </div>
         </section>
@@ -229,7 +218,7 @@ function App() {
               </h2>
               <p>
                 I started Spark Fuel to fill the gaps for small business
-                founders — so you can move forward without doing branding,
+                founders. You can move forward without doing branding,
                 websites, and strategy all alone. Research, design, systems,
                 and a creative copilot who makes the whole thing feel like you.
               </p>
@@ -243,10 +232,11 @@ function App() {
               <SparkMark className="eyebrow-spark" />
               The burn · What I do
             </p>
-            <h2>Small business services — from first spark to full launch.</h2>
+            <h2>Small business services: from first spark to full launch.</h2>
             <p className="services-lede">
               Strategy, brand identity, custom websites, social media, campaigns,
-              and merch — built around what your business actually needs.
+              and merch. Each one is built around what your business actually
+              needs.
             </p>
           </div>
           <ul className="service-list">
@@ -255,6 +245,14 @@ function App() {
               const panelId = `service-panel-${index}`
               return (
                 <li key={service.title} className={open ? 'is-open' : ''}>
+                  {open ? (
+                    <div
+                      className={`service-aura service-aura--${index % 2 === 0 ? 'spark' : 'signal'}`}
+                      aria-hidden="true"
+                    >
+                      <span className="service-aura-core" />
+                    </div>
+                  ) : null}
                   <h3 className="service-heading">
                     <ServiceTrigger
                       open={open}
@@ -293,7 +291,7 @@ function App() {
             </p>
             <h2>Got a small business idea that needs fuel?</h2>
             <p>
-              Tell me what you’re building — branding, a website, strategy, or
+              Tell me what you’re building: branding, a website, strategy, or
               all of it. We’ll figure out the gaps and make something amazing
               together.
             </p>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { SparkMark } from './SparkMark'
 
 type WordmarkRevealProps = {
@@ -25,27 +25,40 @@ function prefersReducedMotion() {
 }
 
 /**
- * Wordmark shatters into sparks on first paint, then reforms.
+ * Wordmark stays put, then shatters into sparks and reforms on hover.
  */
 export function WordmarkReveal({ src, alt, className }: WordmarkRevealProps) {
-  const [phase, setPhase] = useState<'shatter' | 'reform' | 'done'>(() =>
-    prefersReducedMotion() ? 'done' : 'shatter',
-  )
+  const [phase, setPhase] = useState<'shatter' | 'reform' | 'done'>('done')
+  const [burst, setBurst] = useState(0)
+  const busyRef = useRef(false)
+  const timersRef = useRef<number[]>([])
 
-  useEffect(() => {
-    if (prefersReducedMotion()) return
-
-    const reform = window.setTimeout(() => setPhase('reform'), 1100)
-    const done = window.setTimeout(() => setPhase('done'), 2400)
-    return () => {
-      window.clearTimeout(reform)
-      window.clearTimeout(done)
-    }
+  useEffect(() => () => {
+    timersRef.current.forEach((id) => window.clearTimeout(id))
   }, [])
 
+  const playSpark = () => {
+    if (prefersReducedMotion() || busyRef.current) return
+
+    busyRef.current = true
+    timersRef.current.forEach((id) => window.clearTimeout(id))
+    setBurst((n) => n + 1)
+    setPhase('shatter')
+
+    const reform = window.setTimeout(() => setPhase('reform'), 1100)
+    const done = window.setTimeout(() => {
+      setPhase('done')
+      busyRef.current = false
+    }, 2400)
+    timersRef.current = [reform, done]
+  }
+
   return (
-    <div className={`wordmark-reveal is-${phase}`} aria-hidden={phase !== 'done' ? true : undefined}>
-      <div className="wordmark-shards" aria-hidden="true">
+    <div
+      className={`wordmark-reveal is-${phase}`}
+      onPointerEnter={playSpark}
+    >
+      <div className="wordmark-shards" aria-hidden="true" key={burst}>
         {SHARDS.map((shard) => (
           <SparkMark
             key={shard.id}
@@ -60,7 +73,7 @@ export function WordmarkReveal({ src, alt, className }: WordmarkRevealProps) {
           />
         ))}
       </div>
-      <img className={className} src={src} alt={phase === 'done' ? alt : ''} />
+      <img className={className} src={src} alt={alt} />
     </div>
   )
 }
