@@ -1,11 +1,22 @@
-import { useEffect, useState, type CSSProperties } from 'react'
+import { useEffect, useState, type CSSProperties, type ReactNode } from 'react'
 import alexis from './assets/brand/alexis-cutout.png'
 import wordmark from './assets/brand/wordmark.svg'
+import { ChapterWipe } from './components/ChapterWipe'
+import { Constellation } from './components/Constellation'
+import { FuelPour } from './components/FuelPour'
+import { MagneticCursor } from './components/MagneticCursor'
+import { OrbitSparks } from './components/OrbitSparks'
+import { ScrollStreaks } from './components/ScrollStreaks'
+import { ServiceIgnition } from './components/ServiceIgnition'
 import { SparkField } from './components/SparkField'
 import { SparkMark } from './components/SparkMark'
+import { WordmarkReveal } from './components/WordmarkReveal'
+import { useChapterPulse } from './hooks/useChapterPulse'
+import { useMagnetic } from './hooks/useMagnetic'
+import { useMotionPointer } from './hooks/useMotionPointer'
 import { useParallax } from './hooks/useParallax'
-import { usePointerParallax } from './hooks/usePointerParallax'
 import { useScrollIgnition } from './hooks/useScrollIgnition'
+import { useScrollStreaks } from './hooks/useScrollStreaks'
 import './App.css'
 
 const services = [
@@ -43,23 +54,50 @@ const services = [
   },
 ]
 
+function MagneticLink({
+  className,
+  href,
+  children,
+  strength = 12,
+}: {
+  className?: string
+  href: string
+  children: ReactNode
+  strength?: number
+}) {
+  const ref = useMagnetic({ strength })
+  return (
+    <a ref={ref} className={className} href={href} data-magnetic>
+      {children}
+    </a>
+  )
+}
+
 function App() {
   const scrollY = useParallax()
-  const pointer = usePointerParallax()
+  const pointer = useMotionPointer(0.28)
   const { ignition, fuel, finale } = useScrollIgnition()
+  const { pulse, active } = useChapterPulse()
+  const streaks = useScrollStreaks()
   const [openService, setOpenService] = useState<number | null>(0)
   const [ready, setReady] = useState(false)
-
+  const navCtaRef = useMagnetic({ strength: 10, radius: 100 })
+  const heroPrimaryRef = useMagnetic({ strength: 14, radius: 130 })
+  const heroGhostRef = useMagnetic({ strength: 12, radius: 120 })
   useEffect(() => {
     const id = window.setTimeout(() => setReady(true), 40)
     return () => window.clearTimeout(id)
   }, [])
 
   const heroProgress = Math.min(scrollY / 700, 1)
+  const aboutShift = scrollY * 0.08
+  const contactShift = scrollY * 0.05
+  const tiltX = pointer.y * -10
+  const tiltY = pointer.x * 12
 
   return (
     <div
-      className={`site ${ready ? 'is-ready' : ''}`}
+      className={`site ${ready ? 'is-ready' : ''} chapter-${active}`}
       style={
         {
           '--pointer-x': String(pointer.x),
@@ -67,29 +105,45 @@ function App() {
           '--ignition': String(ignition),
           '--fuel': String(fuel),
           '--finale': String(finale),
+          '--tilt-x': `${tiltX}deg`,
+          '--tilt-y': `${tiltY}deg`,
         } as CSSProperties
       }
     >
+      <MagneticCursor />
+
       <div className="atmosphere" aria-hidden="true">
         <div className="glow glow-a" />
         <div className="glow glow-b" />
         <div className="glow glow-c" />
         <div className="glow glow-ignite" />
-        <div className="star-veil" />
+        <div className="pointer-bloom" />
+        <ChapterWipe pulse={pulse} />
+        <div className="star-veil star-veil--base" />
+        <div className="star-veil star-veil--dense" />
+        <div className="star-veil star-veil--finale" />
+        <Constellation />
+        <SparkField depth="dust" />
         <SparkField depth="far" />
         <SparkField depth="mid" />
         <SparkField depth="near" />
+        <ScrollStreaks streaks={streaks} />
+        <ServiceIgnition index={openService} active={active === 'burn'} />
       </div>
 
       <header className="topbar">
-        <a className="topbar-brand" href="#top" aria-label="Spark Fuel home">
+        <a className="topbar-brand" href="#top" aria-label="Spark Fuel home" data-magnetic>
           <SparkMark className="topbar-spark" />
           <span>Spark Fuel</span>
         </a>
         <nav className="topbar-nav" aria-label="Primary">
-          <a href="#about">About</a>
-          <a href="#services">Services</a>
-          <a href="#contact" className="nav-cta">
+          <a href="#about" data-magnetic>
+            About
+          </a>
+          <a href="#services" data-magnetic>
+            Services
+          </a>
+          <a ref={navCtaRef} href="#contact" className="nav-cta" data-magnetic>
             Let’s talk
           </a>
         </nav>
@@ -101,23 +155,14 @@ function App() {
           id="top"
           style={
             {
-              '--parallax-slow': `${scrollY * 0.28}px`,
-              '--parallax-mid': `${scrollY * -0.18}px`,
-              '--parallax-fast': `${scrollY * 0.32}px`,
-              '--parallax-fade': String(1 - heroProgress * 0.3),
+              '--parallax-mid': `${scrollY * -0.28}px`,
+              '--parallax-fade': String(1 - heroProgress * 0.35),
             } as CSSProperties
           }
         >
-          <div className="hero-field" aria-hidden="true">
-            <div className="spark-burst">
-              <SparkMark className="burst-core" />
-              <div className="burst-glow" />
-            </div>
-          </div>
-
           <div className="hero-stage">
             <p className="chapter-tag chapter-tag--hero">The spark</p>
-            <img className="hero-logo" src={wordmark} alt="Spark Fuel" />
+            <WordmarkReveal src={wordmark} alt="Spark Fuel" className="hero-logo" />
             <h1 className="hero-headline">
               Your small business
               <span> copilot.</span>
@@ -127,25 +172,48 @@ function App() {
               off the ground — or give your small business a whole new look.
             </p>
             <div className="hero-actions">
-              <a className="btn btn-spark" href="#contact">
+              <a
+                ref={heroPrimaryRef}
+                className="btn btn-spark"
+                href="#contact"
+                data-magnetic
+              >
                 Start a project
               </a>
-              <a className="btn btn-ghost" href="#services">
+              <a
+                ref={heroGhostRef}
+                className="btn btn-ghost"
+                href="#services"
+                data-magnetic
+              >
                 See how I help
               </a>
             </div>
           </div>
         </section>
 
-        <section className="about" id="about">
+        <section
+          className="about"
+          id="about"
+          style={
+            {
+              '--about-parallax': `${aboutShift}px`,
+              '--about-parallax-opp': `${-aboutShift * 0.65}px`,
+            } as CSSProperties
+          }
+        >
           <div className="about-layout">
             <div className="about-portrait">
               <div className="portrait-halo" aria-hidden="true" />
+              <FuelPour layer="behind" />
+              <div className="portrait-frame">
+                <div className="portrait-tilt">
+                  <img src={alexis} alt="Alexis, founder of Spark Fuel" />
+                </div>
+              </div>
+              <FuelPour layer="front" />
               <div className="fuel-orbit" aria-hidden="true">
                 <SparkMark className="fuel-spark fuel-spark--meet" />
-              </div>
-              <div className="portrait-frame">
-                <img src={alexis} alt="Alexis, founder of Spark Fuel" />
               </div>
               <div className="portrait-ground" aria-hidden="true" />
               <SparkMark className="about-spark about-spark-a" />
@@ -188,22 +256,13 @@ function App() {
               return (
                 <li key={service.title} className={open ? 'is-open' : ''}>
                   <h3 className="service-heading">
-                    <button
-                      type="button"
-                      className="service-trigger"
-                      aria-expanded={open}
-                      aria-controls={panelId}
-                      onClick={() => setOpenService(open ? null : index)}
-                    >
-                      <span className="service-index">
-                        <SparkMark className="service-spark" />
-                        {String(index + 1).padStart(2, '0')}
-                      </span>
-                      <span className="service-title">{service.title}</span>
-                      <span className="service-toggle" aria-hidden="true">
-                        {open ? '−' : '+'}
-                      </span>
-                    </button>
+                    <ServiceTrigger
+                      open={open}
+                      panelId={panelId}
+                      index={index}
+                      title={service.title}
+                      onToggle={() => setOpenService(open ? null : index)}
+                    />
                   </h3>
                   <div className="service-panel" id={panelId} role="region">
                     <div className="service-panel-inner">
@@ -216,7 +275,15 @@ function App() {
           </ul>
         </section>
 
-        <section className="contact" id="contact">
+        <section
+          className="contact"
+          id="contact"
+          style={
+            {
+              '--contact-parallax': `${contactShift}px`,
+            } as CSSProperties
+          }
+        >
           <div className="contact-bloom" aria-hidden="true" />
           <div className="contact-inner">
             <SparkMark className="contact-spark" title="Spark" />
@@ -230,9 +297,16 @@ function App() {
               all of it. We’ll figure out the gaps and make something amazing
               together.
             </p>
-            <a className="btn btn-spark btn-lg" href="mailto:hello@sparkfuel.co">
-              hello@sparkfuel.co
-            </a>
+            <div className="contact-cta-wrap">
+              <OrbitSparks />
+              <a
+                className="btn btn-spark btn-lg"
+                href="mailto:hello@sparkfuel.co"
+                data-magnetic
+              >
+                hello@sparkfuel.co
+              </a>
+            </div>
           </div>
         </section>
       </main>
@@ -240,10 +314,48 @@ function App() {
       <footer className="footer">
         <p>© {new Date().getFullYear()} Spark Fuel</p>
         <p>
-          <a href="https://sparkfuel.co/">sparkfuel.co</a>
+          <MagneticLink href="https://sparkfuel.co/" strength={8}>
+            sparkfuel.co
+          </MagneticLink>
         </p>
       </footer>
     </div>
+  )
+}
+
+function ServiceTrigger({
+  open,
+  panelId,
+  index,
+  title,
+  onToggle,
+}: {
+  open: boolean
+  panelId: string
+  index: number
+  title: string
+  onToggle: () => void
+}) {
+  const ref = useMagnetic({ strength: 8, radius: 100 })
+  return (
+    <button
+      ref={ref}
+      type="button"
+      className="service-trigger"
+      aria-expanded={open}
+      aria-controls={panelId}
+      data-magnetic
+      onClick={onToggle}
+    >
+      <span className="service-index">
+        <SparkMark className="service-spark" />
+        {String(index + 1).padStart(2, '0')}
+      </span>
+      <span className="service-title">{title}</span>
+      <span className="service-toggle" aria-hidden="true">
+        {open ? '−' : '+'}
+      </span>
+    </button>
   )
 }
 
