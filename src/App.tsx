@@ -11,10 +11,11 @@ import { SparkField } from './components/SparkField'
 import { SparkMark } from './components/SparkMark'
 import { WordmarkReveal } from './components/WordmarkReveal'
 import { useChapterPulse } from './hooks/useChapterPulse'
+import { useRoute } from './hooks/useRoute'
+import { WorkPage } from './pages/WorkPage'
 import { useMagnetic } from './hooks/useMagnetic'
 import { useMotionPointer } from './hooks/useMotionPointer'
-import { useParallax } from './hooks/useParallax'
-import { useScrollIgnition } from './hooks/useScrollIgnition'
+import { useScrollScene } from './hooks/useScrollScene'
 import { useScrollStreaks } from './hooks/useScrollStreaks'
 import './App.css'
 
@@ -73,9 +74,10 @@ function MagneticLink({
 }
 
 function App() {
-  const scrollY = useParallax()
+  const { path, go } = useRoute()
+  const isWork = path === '/work'
+  useScrollScene(!isWork)
   const pointer = useMotionPointer(0.28)
-  const { ignition, fuel, finale } = useScrollIgnition()
   const { pulse, active } = useChapterPulse()
   const streaks = useScrollStreaks()
   const [openService, setOpenService] = useState<number | null>(0)
@@ -86,21 +88,22 @@ function App() {
     return () => window.clearTimeout(id)
   }, [])
 
-  const aboutShift = scrollY * 0.08
-  const contactShift = scrollY * 0.05
+  useEffect(() => {
+    document.title = isWork
+      ? 'Work | Spark Fuel'
+      : 'Spark Fuel | Small Business Research, Design & Strategy'
+  }, [isWork])
+
   const tiltX = pointer.y * -10
   const tiltY = pointer.x * 12
 
   return (
     <div
-      className={`site ${ready ? 'is-ready' : ''} chapter-${active}`}
+      className={`site ${ready ? 'is-ready' : ''} chapter-${active}${isWork ? ' site--work' : ''}`}
       style={
         {
           '--pointer-x': String(pointer.x),
           '--pointer-y': String(pointer.y),
-          '--ignition': String(ignition),
-          '--fuel': String(fuel),
-          '--finale': String(finale),
           '--tilt-x': `${tiltX}deg`,
           '--tilt-y': `${tiltY}deg`,
         } as CSSProperties
@@ -114,7 +117,7 @@ function App() {
         <div className="glow glow-c" />
         <div className="glow glow-ignite" />
         <div className="pointer-bloom" />
-        <ChapterWipe pulse={pulse} />
+        {isWork ? null : <ChapterWipe pulse={pulse} />}
         <div className="star-veil star-veil--base" />
         <div className="star-veil star-veil--dense" />
         <div className="star-veil star-veil--finale" />
@@ -127,33 +130,37 @@ function App() {
       </div>
 
       <header className="topbar">
-        <a className="topbar-brand" href="#top" aria-label="Spark Fuel home" data-magnetic>
+        <a className="topbar-brand" href="/" aria-label="Spark Fuel home" data-magnetic onClick={go('/')}>
           <SparkMark className="topbar-spark" />
           <span>Spark Fuel</span>
         </a>
         <nav className="topbar-nav" aria-label="Primary">
-          <a href="#about" data-magnetic>
+          <a href="/#about" data-magnetic onClick={go('/#about')}>
             About
           </a>
-          <a href="#services" data-magnetic>
+          <a href="/#services" data-magnetic onClick={go('/#services')}>
             Services
           </a>
-          <a ref={navCtaRef} href="#contact" className="nav-cta" data-magnetic>
+          <a
+            href="/work"
+            className={`nav-work${isWork ? ' is-current' : ''}`}
+            aria-current={isWork ? 'page' : undefined}
+            data-magnetic
+            onClick={go('/work')}
+          >
+            Work
+          </a>
+          <a ref={navCtaRef} href="/#contact" className="nav-cta" data-magnetic onClick={go('/#contact')}>
             Let’s talk
           </a>
         </nav>
       </header>
 
-      <main>
-        <section
-          className="hero"
-          id="top"
-          style={
-            {
-              '--parallax-mid': `${scrollY * -0.28}px`,
-            } as CSSProperties
-          }
-        >
+      {isWork ? (
+        <WorkPage />
+      ) : (
+        <main>
+        <section className="hero" id="top">
           <div className="hero-stage">
             <WordmarkReveal src={wordmark} alt="Spark Fuel" className="hero-logo" />
             <h1 className="hero-headline">
@@ -181,16 +188,7 @@ function App() {
           </div>
         </section>
 
-        <section
-          className="about"
-          id="about"
-          style={
-            {
-              '--about-parallax': `${aboutShift}px`,
-              '--about-parallax-opp': `${-aboutShift * 0.65}px`,
-            } as CSSProperties
-          }
-        >
+        <section className="about" id="about">
           <div className="about-layout">
             <div className="about-portrait">
               <div className="portrait-halo" aria-hidden="true" />
@@ -273,15 +271,7 @@ function App() {
           </ul>
         </section>
 
-        <section
-          className="contact"
-          id="contact"
-          style={
-            {
-              '--contact-parallax': `${contactShift}px`,
-            } as CSSProperties
-          }
-        >
+        <section className="contact" id="contact">
           <div className="contact-bloom" aria-hidden="true" />
           <div className="contact-inner">
             <SparkMark className="contact-spark" title="Spark" />
@@ -289,7 +279,7 @@ function App() {
               <SparkMark className="eyebrow-spark" />
               Ignition
             </p>
-            <h2>Got a small business idea that needs fuel?</h2>
+            <h2>Got a spark that needs fuel?</h2>
             <p>
               Tell me what you’re building: branding, a website, strategy, or
               all of it. We’ll figure out the gaps and make something amazing
@@ -307,7 +297,8 @@ function App() {
             </div>
           </div>
         </section>
-      </main>
+        </main>
+      )}
 
       <footer className="footer">
         <p>© {new Date().getFullYear()} Spark Fuel</p>

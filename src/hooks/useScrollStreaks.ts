@@ -17,7 +17,8 @@ export function useScrollStreaks() {
 
   useEffect(() => {
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)')
-    if (reduce.matches) return
+    const coarse = window.matchMedia('(pointer: coarse)')
+    if (reduce.matches || coarse.matches) return
 
     let lastY = window.scrollY
     let lastT = performance.now()

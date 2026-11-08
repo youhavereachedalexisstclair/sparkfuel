@@ -42,11 +42,17 @@ html {
   scroll-behavior: smooth;
 }
 
+@media (pointer: coarse), (max-width: 900px) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
 body {
   margin: 0;
   min-width: 320px;
   background: var(--night);
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 img {
