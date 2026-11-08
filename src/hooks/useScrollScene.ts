@@ -2,15 +2,6 @@ import { useLayoutEffect } from 'react'
 
 const PHONE_QUERY = '(pointer: coarse), (max-width: 900px)'
 
-/** On-screen hero drift stays inside 40px. CSS multiplies this variable by 0.35. */
-const PHONE_HERO_VAR = 40 / 0.35
-const PHONE_ABOUT = 36
-const PHONE_CONTACT = 40
-
-function clamp(value: number, min: number, max: number) {
-  return Math.min(max, Math.max(min, value))
-}
-
 function clamp01(value: number) {
   return Math.min(1, Math.max(0, value))
 }
@@ -21,15 +12,16 @@ function smoothstep(edge0: number, edge1: number, x: number) {
 }
 
 /**
- * Writes scroll-driven custom properties directly.
- * Keeps parallax and ignition off the React render path.
+ * Desktop: writes scroll-driven custom properties without a React render.
+ * Phones: one static sky and no scroll listener, so the page can scroll on
+ * the compositor instead of restyling the sky every frame.
  */
 export function useScrollScene(enabled: boolean) {
   useLayoutEffect(() => {
     const root = document.documentElement
-    let frame = 0
     const phoneQuery = window.matchMedia(PHONE_QUERY)
     const written = new Map<string, string>()
+    let frame = 0
 
     const setVar = (name: string, value: string) => {
       if (written.get(name) === value) return
@@ -55,11 +47,6 @@ export function useScrollScene(enabled: boolean) {
     }
 
     const measure = () => {
-      if (!enabled) {
-        apply(0.42, 0.22, 0.08, 0, 0, 0)
-        return
-      }
-
       const doc = document.documentElement
       const scrollY = window.scrollY
       const maxScroll = Math.max(1, doc.scrollHeight - window.innerHeight)
@@ -83,35 +70,41 @@ export function useScrollScene(enabled: boolean) {
         finale = smoothstep(window.innerHeight * 1.05, window.innerHeight * 0.5, mid)
       }
 
-      let parallaxMid = scrollY * -0.28
-      let aboutShift = scrollY * 0.08
-      let contactShift = scrollY * 0.05
-
-      if (phoneQuery.matches) {
-        parallaxMid = clamp(parallaxMid, -PHONE_HERO_VAR, PHONE_HERO_VAR)
-        aboutShift = clamp(aboutShift, -PHONE_ABOUT, PHONE_ABOUT)
-        contactShift = clamp(contactShift, -PHONE_CONTACT, PHONE_CONTACT)
-      }
-
-      apply(ignition, fuel, finale, parallaxMid, aboutShift, contactShift)
+      apply(ignition, fuel, finale, scrollY * -0.28, scrollY * 0.08, scrollY * 0.05)
     }
-
-    measure()
 
     const onScroll = () => {
       cancelAnimationFrame(frame)
       frame = requestAnimationFrame(measure)
     }
 
-    window.addEventListener('scroll', onScroll, { passive: true })
-    window.addEventListener('resize', onScroll)
-    phoneQuery.addEventListener('change', onScroll)
+    const connect = () => {
+      window.removeEventListener('scroll', onScroll)
+      cancelAnimationFrame(frame)
+
+      if (!enabled) {
+        apply(0.42, 0.22, 0.08, 0, 0, 0)
+        return
+      }
+
+      if (phoneQuery.matches) {
+        apply(0.72, 0.85, 0.45, 0, 0, 0)
+        return
+      }
+
+      window.addEventListener('scroll', onScroll, { passive: true })
+      measure()
+    }
+
+    connect()
+    window.addEventListener('resize', connect)
+    phoneQuery.addEventListener('change', connect)
 
     return () => {
       cancelAnimationFrame(frame)
       window.removeEventListener('scroll', onScroll)
-      window.removeEventListener('resize', onScroll)
-      phoneQuery.removeEventListener('change', onScroll)
+      window.removeEventListener('resize', connect)
+      phoneQuery.removeEventListener('change', connect)
     }
   }, [enabled])
 }

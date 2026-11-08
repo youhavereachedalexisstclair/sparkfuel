@@ -1517,8 +1517,19 @@ html.has-magnetic-cursor * {
     min-height: 100svh;
   }
 
-  .topbar {
+  /* Stable fixed sky. A resizing fixed layer jumps when the browser chrome hides. */
+  .atmosphere {
+    bottom: auto;
+    height: 100lvh;
+  }
+
+  .topbar,
+  .services {
     backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .topbar {
     background: rgba(14, 18, 24, 0.92);
   }
 
@@ -1531,36 +1542,114 @@ html.has-magnetic-cursor * {
     perspective: none;
   }
 
-  .portrait-tilt {
+  .portrait-tilt,
+  .btn,
+  .wordmark-reveal,
+  .site.is-ready .hero-headline,
+  .hero-headline span {
     will-change: auto;
   }
 
-  .sky-spark--dust {
-    filter: drop-shadow(0 0 4px rgba(200, 242, 53, 0.4));
+  .glow,
+  .glow-ignite,
+  .glow-c,
+  .pointer-bloom,
+  .star-veil,
+  .spark-field,
+  .spark-field--dust,
+  .spark-field--far,
+  .spark-field--mid,
+  .spark-field--near,
+  .constellation,
+  .sky-spark,
+  .portrait-halo,
+  .portrait-ground,
+  .about-spark,
+  .fuel-spark--meet,
+  .fuel-stream,
+  .fuel-drip,
+  .contact-bloom,
+  .contact-spark,
+  .service-aura,
+  .service-aura-core,
+  .orbit-sparks-arm {
+    animation: none !important;
   }
 
-  .sky-spark--far {
-    filter: drop-shadow(0 0 6px rgba(200, 242, 53, 0.45));
+  .glow,
+  .glow-ignite,
+  .pointer-bloom,
+  .portrait-halo,
+  .portrait-ground,
+  .sky-spark,
+  .sky-spark--dust,
+  .sky-spark--far,
+  .sky-spark--mid,
+  .sky-spark--near,
+  .fuel-spark--meet,
+  .fuel-stream,
+  .contact-spark,
+  .service-aura,
+  .service-aura-core,
+  .portrait-frame img,
+  .orbit-sparks-mark {
+    filter: none;
   }
 
-  .sky-spark--mid {
-    filter: drop-shadow(0 0 10px rgba(200, 242, 53, 0.55));
+  .about-portrait,
+  .about-copy,
+  .site.is-ready .hero-headline,
+  .hero-headline span,
+  .contact-inner,
+  .contact-bloom,
+  .contact-spark,
+  .spark-field,
+  .spark-field--dust,
+  .spark-field--far,
+  .spark-field--mid,
+  .spark-field--near,
+  .constellation,
+  .portrait-tilt,
+  .glow-ignite,
+  .glow-c,
+  .fuel-spark--meet,
+  .about-spark-a,
+  .about-spark-b {
+    transform: none;
+    translate: none;
   }
 
-  .sky-spark--near {
-    filter: drop-shadow(0 0 16px rgba(200, 242, 53, 0.65));
+  .spark-field--dust,
+  .star-veil--dense,
+  .pointer-bloom,
+  .chapter-wipe {
+    display: none;
   }
 
-  .fuel-spark--meet {
-    filter: drop-shadow(0 0 22px rgba(200, 242, 53, 0.75));
-    transition: none;
-  }
-
+  .glow-a { opacity: 0.45; }
+  .glow-b { opacity: 0.35; }
+  .glow-c { opacity: 0.22; }
+  .glow-ignite { opacity: 0.2; }
+  .star-veil--base { opacity: 0.85; }
+  .star-veil--finale { opacity: 0.4; }
+  .constellation { opacity: 0.4; }
+  .spark-field--far,
+  .spark-field--mid,
+  .spark-field--near { opacity: 0.9; }
+  .sky-spark,
+  .sky-spark--dust { opacity: 0.8; }
+  .portrait-halo { opacity: 0.8; }
+  .portrait-ground { opacity: 0.7; }
+  .fuel-pour { opacity: 0.7; }
+  .fuel-spark--meet { opacity: 1; }
+  .about-spark-a,
+  .about-spark-b { opacity: 0.9; }
+  .contact-bloom { opacity: 0.45; }
   .contact-spark {
     width: 3rem;
     height: 3rem;
-    filter: drop-shadow(0 0 18px rgba(200, 242, 53, 0.5));
   }
+  .service-aura { opacity: 0.28; }
 }
 
 @media (prefers-reduced-motion: reduce) {

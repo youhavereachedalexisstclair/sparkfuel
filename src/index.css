@@ -45,6 +45,7 @@ html {
 @media (pointer: coarse), (max-width: 900px) {
   html {
     scroll-behavior: auto;
+    touch-action: pan-y;
   }
 }
 

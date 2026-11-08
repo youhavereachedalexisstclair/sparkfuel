@@ -21,7 +21,7 @@ const SHARDS = Array.from({ length: 14 }, (_, i) => {
 
 function prefersReducedMotion() {
   return typeof window !== 'undefined'
-    && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    && window.matchMedia('(prefers-reduced-motion: reduce), (pointer: coarse)').matches
 }
 
 /**

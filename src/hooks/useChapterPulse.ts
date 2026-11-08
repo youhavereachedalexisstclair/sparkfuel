@@ -18,7 +18,8 @@ export function useChapterPulse() {
 
   useEffect(() => {
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)')
-    if (reduce.matches) return
+    const phone = window.matchMedia('(pointer: coarse), (max-width: 900px)')
+    if (reduce.matches || phone.matches) return
 
     const seen = new Set<ChapterId>()
     let clearTimer = 0
