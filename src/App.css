@@ -1649,6 +1649,10 @@ html.has-magnetic-cursor * {
     width: 3rem;
     height: 3rem;
   }
+  .hero-actions {
+    margin-top: 2.75rem;
+  }
+
   .hero-cta-wrap .orbit-sparks {
     opacity: 0.9;
   }
