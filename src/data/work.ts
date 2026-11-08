@@ -13,7 +13,7 @@ export const workPieces: WorkPiece[] = [
     id: 'nova-talent',
     title: 'Nova Talent',
     meta: 'Preview',
-    src: '/work/nova-talent.mp4',
+    src: '/work/nova-talent.mp4?v=2',
     poster: '/work/nova-talent.jpg',
     aspect: '3024 / 1496',
   },
