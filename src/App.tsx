@@ -15,6 +15,7 @@ import { useRoute } from './hooks/useRoute'
 import { WorkPage } from './pages/WorkPage'
 import { useMagnetic } from './hooks/useMagnetic'
 import { useMotionPointer } from './hooks/useMotionPointer'
+import { useMobileMoments } from './hooks/useMobileMoments'
 import { useScrollScene } from './hooks/useScrollScene'
 import { useScrollStreaks } from './hooks/useScrollStreaks'
 import './App.css'
@@ -77,6 +78,7 @@ function App() {
   const { path, go } = useRoute()
   const isWork = path === '/work'
   useScrollScene(!isWork)
+  const mobileSparkRef = useMobileMoments(path)
   const pointer = useMotionPointer(0.28)
   const { pulse, active } = useChapterPulse()
   const streaks = useScrollStreaks()
@@ -109,6 +111,8 @@ function App() {
         } as CSSProperties
       }
     >
+      <div ref={mobileSparkRef} className="mobile-scroll-spark" aria-hidden="true" />
+
       <MagneticCursor />
 
       <div className="atmosphere" aria-hidden="true">
@@ -189,7 +193,7 @@ function App() {
         </section>
 
         <section className="about" id="about">
-          <div className="about-layout">
+          <div className="about-layout" data-rise>
             <div className="about-portrait">
               <div className="portrait-halo" aria-hidden="true" />
               <FuelPour layer="behind" />
@@ -225,7 +229,7 @@ function App() {
         </section>
 
         <section className="services" id="services">
-          <div className="services-head">
+          <div className="services-head" data-rise>
             <p className="eyebrow">
               <SparkMark className="eyebrow-spark" />
               The burn · What I do
@@ -237,7 +241,7 @@ function App() {
               needs.
             </p>
           </div>
-          <ul className="service-list">
+          <ul className="service-list" data-rise>
             {services.map((service, index) => {
               const open = openService === index
               const panelId = `service-panel-${index}`
@@ -273,7 +277,7 @@ function App() {
 
         <section className="contact" id="contact">
           <div className="contact-bloom" aria-hidden="true" />
-          <div className="contact-inner">
+          <div className="contact-inner" data-rise>
             <SparkMark className="contact-spark" title="Spark" />
             <p className="eyebrow">
               <SparkMark className="eyebrow-spark" />

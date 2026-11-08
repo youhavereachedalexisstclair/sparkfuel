@@ -21,7 +21,12 @@ const SHARDS = Array.from({ length: 14 }, (_, i) => {
 
 function prefersReducedMotion() {
   return typeof window !== 'undefined'
-    && window.matchMedia('(prefers-reduced-motion: reduce), (pointer: coarse)').matches
+    && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+}
+
+function coarsePointer() {
+  return typeof window !== 'undefined'
+    && window.matchMedia('(pointer: coarse)').matches
 }
 
 /**
@@ -56,7 +61,14 @@ export function WordmarkReveal({ src, alt, className }: WordmarkRevealProps) {
   return (
     <div
       className={`wordmark-reveal is-${phase}`}
-      onPointerEnter={playSpark}
+      onPointerEnter={() => {
+        if (coarsePointer()) return
+        playSpark()
+      }}
+      onClick={() => {
+        if (!coarsePointer()) return
+        playSpark()
+      }}
     >
       <div className="wordmark-shards" aria-hidden="true" key={burst}>
         {SHARDS.map((shard) => (
