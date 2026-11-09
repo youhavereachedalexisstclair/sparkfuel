@@ -8,6 +8,7 @@ import { MagneticCursor } from './components/MagneticCursor'
 import { OrbitSparks } from './components/OrbitSparks'
 import { ScrollStreaks } from './components/ScrollStreaks'
 import { SparkField } from './components/SparkField'
+import { Services } from './components/Services'
 import { SparkMark } from './components/SparkMark'
 import { WordmarkReveal } from './components/WordmarkReveal'
 import { useChapterPulse } from './hooks/useChapterPulse'
@@ -19,41 +20,6 @@ import { useMobileMoments } from './hooks/useMobileMoments'
 import { useScrollScene } from './hooks/useScrollScene'
 import { useScrollStreaks } from './hooks/useScrollStreaks'
 import './App.css'
-
-const services = [
-  {
-    title: 'Strategy & Insights',
-    body: 'Turn your idea into a real business. I’ll help you brainstorm, research the market and competitors, set up your LLC and financial accounts, and protect your name with trademarks.',
-  },
-  {
-    title: 'Smart Tools & Systems',
-    body: 'Get your operations running smoothly behind the scenes. I’ll set up Google Workspace, secure your domain, and implement tech integrations, automations, and tools that make your workday flow.',
-  },
-  {
-    title: 'Visual Brand Identity',
-    body: 'Design a brand that connects, stands out, and feels like you. I’ll craft your logo, color palette, typography, and brand guide. I’ll also help refine your photo direction and tone of voice.',
-  },
-  {
-    title: 'Custom Websites',
-    body: 'Build a site that looks good and works hard for you. Each one is custom-designed, mobile-friendly, and equipped with SEO tools to help you show up where it matters.',
-  },
-  {
-    title: 'Social Media',
-    body: 'Get your platforms looking sharp and running with purpose. I can set up or refresh your accounts, align them with your brand and goals, and create content calendars that make posting easy.',
-  },
-  {
-    title: 'Campaigns & Content',
-    body: 'Spread the word. I plan, design, and launch campaigns across social, email, and ads. The goal is to show up consistently and connect with your audience.',
-  },
-  {
-    title: 'Branded Merch & Materials',
-    body: 'Bring your brand to life in the real world. From business cards and stickers to packaging and apparel, I’ll design merch and materials that look polished, intentional, and unmistakably yours.',
-  },
-  {
-    title: 'Everything Else',
-    body: 'Your on-call creative copilot. Whether you need a sounding board, a problem-solver, or a professional Googler with great taste, I’m here to help you figure out what’s next, whatever that looks like.',
-  },
-]
 
 function MagneticLink({
   className,
@@ -82,7 +48,6 @@ function App() {
   const pointer = useMotionPointer(0.28)
   const { pulse, active } = useChapterPulse()
   const streaks = useScrollStreaks()
-  const [openService, setOpenService] = useState<number | null>(0)
   const [ready, setReady] = useState(false)
   const navCtaRef = useMagnetic({ strength: 10, radius: 100 })
   useEffect(() => {
@@ -228,52 +193,7 @@ function App() {
           </div>
         </section>
 
-        <section className="services" id="services">
-          <div className="services-head" data-rise>
-            <p className="eyebrow">
-              <SparkMark className="eyebrow-spark" />
-              The burn · What I do
-            </p>
-            <h2>Small business services: from first spark to full launch.</h2>
-            <p className="services-lede">
-              Strategy, brand identity, custom websites, social media, campaigns,
-              and merch. Each one is built around what your business actually
-              needs.
-            </p>
-          </div>
-          <ul className="service-list" data-rise>
-            {services.map((service, index) => {
-              const open = openService === index
-              const panelId = `service-panel-${index}`
-              return (
-                <li key={service.title} className={open ? 'is-open' : ''}>
-                  {open ? (
-                    <div
-                      className={`service-aura service-aura--${index % 2 === 0 ? 'spark' : 'signal'}`}
-                      aria-hidden="true"
-                    >
-                      <span className="service-aura-core" />
-                    </div>
-                  ) : null}
-                  <h3 className="service-heading">
-                    <ServiceTrigger
-                      open={open}
-                      panelId={panelId}
-                      index={index}
-                      title={service.title}
-                      onToggle={() => setOpenService(open ? null : index)}
-                    />
-                  </h3>
-                  <div className="service-panel" id={panelId} role="region">
-                    <div className="service-panel-inner">
-                      <p>{service.body}</p>
-                    </div>
-                  </div>
-                </li>
-              )
-            })}
-          </ul>
-        </section>
+        <Services />
 
         <section className="contact" id="contact">
           <div className="contact-bloom" aria-hidden="true" />
@@ -313,42 +233,6 @@ function App() {
         </p>
       </footer>
     </div>
-  )
-}
-
-function ServiceTrigger({
-  open,
-  panelId,
-  index,
-  title,
-  onToggle,
-}: {
-  open: boolean
-  panelId: string
-  index: number
-  title: string
-  onToggle: () => void
-}) {
-  const ref = useMagnetic({ strength: 8, radius: 100 })
-  return (
-    <button
-      ref={ref}
-      type="button"
-      className="service-trigger"
-      aria-expanded={open}
-      aria-controls={panelId}
-      data-magnetic
-      onClick={onToggle}
-    >
-      <span className="service-index">
-        <SparkMark className="service-spark" />
-        {String(index + 1).padStart(2, '0')}
-      </span>
-      <span className="service-title">{title}</span>
-      <span className="service-toggle" aria-hidden="true">
-        {open ? '−' : '+'}
-      </span>
-    </button>
   )
 }
 
