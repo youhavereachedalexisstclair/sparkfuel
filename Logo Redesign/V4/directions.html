@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spark Fuel — logo V4</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Fraunces:opsz,wght@9..144,560&family=Figtree:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --night: #0e1218;
+        --elev: #151b24;
+        --spark: #c8f235;
+        --ground: #c6c36a;
+        --mist: #e8edf5;
+        --dim: rgba(232, 237, 245, 0.68);
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        background: var(--night);
+        color: var(--mist);
+        font-family: Figtree, sans-serif;
+        font-size: 16px;
+        line-height: 1.5;
+      }
+
+      .wrap {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 3.25rem 1.5rem 5rem;
+      }
+
+      .kicker {
+        margin: 0;
+        color: var(--spark);
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin: 0.55rem 0 0.85rem;
+        max-width: 14ch;
+        font-family: "Bricolage Grotesque", sans-serif;
+        font-size: clamp(2.4rem, 5vw, 3.5rem);
+        font-weight: 800;
+        letter-spacing: -0.035em;
+        line-height: 0.98;
+      }
+
+      .lede {
+        max-width: 40rem;
+        margin: 0;
+        color: var(--dim);
+        font-size: 1.05rem;
+      }
+
+      .lede strong { color: var(--mist); font-weight: 600; }
+
+      .concept {
+        margin-top: 1.75rem;
+        background: var(--elev);
+        padding: 0.85rem;
+      }
+
+      .concept header {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 0.35rem 0.45rem 0.8rem;
+      }
+
+      .concept h2 {
+        margin: 0;
+        font-family: "Bricolage Grotesque", sans-serif;
+        font-size: 1.15rem;
+        font-weight: 700;
+        letter-spacing: -0.03em;
+      }
+
+      .concept h2 span {
+        margin-right: 0.45rem;
+        color: var(--dim);
+        font-weight: 560;
+      }
+
+      .tag {
+        color: var(--spark);
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .stage {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        min-height: 320px;
+        background: var(--night);
+      }
+
+      .field {
+        display: grid;
+        place-items: center;
+        padding: 1.5rem;
+      }
+
+      .field-ground { background: var(--ground); color: var(--night); }
+      .field-night { background: var(--night); color: #e7e2d4; }
+      .field-night .spark-only { color: var(--spark); }
+
+      .field svg.mono { width: min(100%, 240px); height: auto; }
+
+      .note {
+        margin: 0.85rem 0.4rem 0.35rem;
+        color: var(--dim);
+        font-size: 0.92rem;
+      }
+
+      .uses {
+        display: grid;
+        grid-template-columns: 1.4fr 52px 1fr;
+        gap: 0.45rem;
+        margin-top: 0.75rem;
+      }
+
+      .use {
+        display: grid;
+        align-content: center;
+        min-height: 76px;
+        padding: 0.7rem 0.7rem;
+        background: var(--night);
+        color: #e7e2d4;
+      }
+
+      .use-light { background: var(--mist); color: var(--night); }
+      .use-ground { background: var(--ground); color: var(--night); }
+
+      .navmock {
+        display: flex;
+        align-items: center;
+        gap: 0.55rem;
+      }
+
+      .navmock .mini { width: 36px; height: auto; flex: none; }
+
+      .nav-name {
+        font-family: "Bricolage Grotesque", sans-serif;
+        font-weight: 800;
+        font-size: 15px;
+        letter-spacing: -0.04em;
+        line-height: 1;
+      }
+
+      .navlinks {
+        margin-left: auto;
+        color: rgba(232, 237, 245, 0.55);
+        font-size: 0.68rem;
+        white-space: nowrap;
+      }
+
+      .word {
+        font-family: Fraunces, serif;
+        font-weight: 560;
+        font-size: clamp(2.6rem, 6vw, 4rem);
+        letter-spacing: -0.03em;
+        line-height: 0.95;
+        color: var(--night);
+      }
+
+      .field-night .word { color: var(--mist); }
+
+      .jewel {
+        width: 42px;
+        height: 42px;
+        margin-top: 0.8rem;
+      }
+
+      .stack { display: grid; justify-items: center; }
+
+      .ico { place-items: center; }
+      .ico svg { width: 32px; height: 32px; }
+
+      .close {
+        margin: 1.5rem 0 0;
+        max-width: 40rem;
+        color: var(--dim);
+      }
+
+      @media (max-width: 800px) {
+        .stage, .uses { grid-template-columns: 1fr; }
+        .navlinks { display: none; }
+        .field { min-height: 240px; }
+      }
+    </style>
+  </head>
+  <body>
+    <svg width="0" height="0" style="position: absolute" aria-hidden="true">
+      <defs>
+        <mask id="pass">
+          <rect width="400" height="400" fill="white"/>
+          <path d="M150 34V206" stroke="black" stroke-width="18" fill="none" stroke-linecap="round"/>
+          <path d="M118 56H194" stroke="black" stroke-width="18" fill="none" stroke-linecap="round"/>
+          <path d="M126 116H180" stroke="black" stroke-width="18" fill="none" stroke-linecap="round"/>
+        </mask>
+      </defs>
+      <symbol id="mono" viewBox="46 18 160 220">
+        <g fill="none" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round">
+          <path mask="url(#pass)" d="M136 48C140 18 62 14 56 50C50 82 112 78 122 108C132 140 58 146 54 182C50 216 128 224 142 196"/>
+          <path d="M150 34V206"/>
+          <path d="M118 56H194"/>
+          <path d="M126 116H180"/>
+        </g>
+        <g fill="currentColor" transform="translate(172 208)">
+          <path d="M0-11 1.5-1.5 11 0 1.5 1.5 0 11-1.5 1.5-11 0-1.5-1.5Z"/>
+          <path transform="rotate(45)" d="M0-7 1.1-1.1 7 0 1.1 1.1 0 7-1.1 1.1-7 0-1.1-1.1Z"/>
+        </g>
+      </symbol>
+      <symbol id="jewel" viewBox="-16 -16 32 32">
+        <path fill="currentColor" d="M0-13 1.7-1.7 13 0 1.7 1.7 0 13-1.7 1.7-13 0-1.7-1.7Z"/>
+        <path fill="currentColor" transform="rotate(45)" d="M0-8 1.2-1.2 8 0 1.2 1.2 0 8-1.2 1.2-8 0-1.2-1.2Z"/>
+        <circle cx="10" cy="-10" r="1.7" fill="currentColor"/>
+        <circle cx="-11" cy="9" r="1.15" fill="currentColor"/>
+      </symbol>
+    </svg>
+
+    <div class="wrap">
+      <p class="kicker">Logo redesign · V4</p>
+      <h1>The letters, with a small star.</h1>
+      <p class="lede">
+        Same structure as the monograms you sent. An <strong>S</strong> and an <strong>F</strong>, drawn with a smooth even stroke, and the star kept as a small mark at the foot. The second one is the word-led version, closer to Flaire: the name does the work, and the star is its own little icon.
+      </p>
+
+      <article class="concept">
+        <header>
+          <h2><span>01</span>Monogram</h2>
+          <span class="tag">Closest to your refs</span>
+        </header>
+        <div class="stage">
+          <div class="field field-ground">
+            <svg class="mono" viewBox="46 18 160 220"><use href="#mono" width="160" height="220" x="46" y="18"/></svg>
+          </div>
+          <div class="field field-night">
+            <svg class="mono" viewBox="46 18 160 220"><use href="#mono" width="160" height="220" x="46" y="18"/></svg>
+          </div>
+        </div>
+        <p class="note">The S passes behind the F, so they lock instead of just sitting next to each other. Olive ground is the reference; night is the site. At favicon size the monogram gets muddy, so the small star is the icon.</p>
+        <div class="uses">
+          <div class="use">
+            <div class="navmock">
+              <svg class="mini" viewBox="46 18 160 220"><use href="#mono" width="160" height="220" x="46" y="18"/></svg>
+              <span class="nav-name">Spark Fuel</span>
+              <span class="navlinks">About · Services · Work</span>
+            </div>
+          </div>
+          <div class="use ico">
+            <svg viewBox="0 0 32 32" aria-hidden="true">
+              <rect width="32" height="32" rx="8" fill="#0e1218"/>
+              <use href="#jewel" x="7" y="7" width="18" height="18" color="#c8f235"/>
+            </svg>
+          </div>
+          <div class="use use-light">
+            <div class="navmock">
+              <svg class="mini" viewBox="46 18 160 220"><use href="#mono" width="160" height="220" x="46" y="18"/></svg>
+              <span class="nav-name">Spark Fuel</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="concept">
+        <header>
+          <h2><span>02</span>Wordmark</h2>
+          <span class="tag">Star as the icon</span>
+        </header>
+        <div class="stage">
+          <div class="field field-ground">
+            <div class="stack">
+              <div class="word">Spark Fuel</div>
+              <svg class="jewel" viewBox="-16 -16 32 32"><use href="#jewel" x="-16" y="-16" width="32" height="32"/></svg>
+            </div>
+          </div>
+          <div class="field field-night">
+            <div class="stack">
+              <div class="word">Spark Fuel</div>
+              <svg class="jewel spark-only" viewBox="-16 -16 32 32"><use href="#jewel" x="-16" y="-16" width="32" height="32"/></svg>
+            </div>
+          </div>
+        </div>
+        <p class="note">The name is the logo. The star picks up the two little dots from the Flaire mark, so it isn’t the plain spark already on the site. This one is easier to use in a nav, an email signature, and a favicon.</p>
+        <div class="uses">
+          <div class="use">
+            <div class="navmock">
+              <svg width="18" height="18" viewBox="-16 -16 32 32"><use href="#jewel" width="32" height="32" x="-16" y="-16"/></svg>
+              <span class="nav-name">Spark Fuel</span>
+              <span class="navlinks">About · Services · Work</span>
+            </div>
+          </div>
+          <div class="use ico">
+            <svg viewBox="0 0 32 32" aria-hidden="true">
+              <rect width="32" height="32" rx="8" fill="#0e1218"/>
+              <use href="#jewel" x="7" y="7" width="18" height="18" color="#c8f235"/>
+            </svg>
+          </div>
+          <div class="use use-ground">
+            <div class="navmock">
+              <svg width="18" height="18" viewBox="-16 -16 32 32"><use href="#jewel" width="32" height="32" x="-16" y="-16"/></svg>
+              <span class="nav-name">Spark Fuel</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <p class="close">The monogram file is monogram.svg. Nothing on the live site has changed. If the monogram is the right family, the next pass is just the curves: softer F, tighter lock, or a little more flourish.</p>
+    </div>
+  </body>
+</html>

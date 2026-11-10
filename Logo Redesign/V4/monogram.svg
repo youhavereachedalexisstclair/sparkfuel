@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="46 18 160 220" fill="none" role="img" aria-label="Spark Fuel monogram">
+  <title>Spark Fuel monogram</title>
+  <defs>
+    <mask id="pass">
+      <rect width="100%" height="100%" fill="white"/>
+      <path d="M150 34V206" stroke="black" stroke-width="18" fill="none" stroke-linecap="round"/>
+      <path d="M118 56H194" stroke="black" stroke-width="18" fill="none" stroke-linecap="round"/>
+      <path d="M126 116H180" stroke="black" stroke-width="18" fill="none" stroke-linecap="round"/>
+    </mask>
+  </defs>
+  <g fill="none" stroke="#0E1218" stroke-width="10" stroke-linecap="round" stroke-linejoin="round">
+    <path mask="url(#pass)" d="M136 48C140 18 62 14 56 50C50 82 112 78 122 108C132 140 58 146 54 182C50 216 128 224 142 196"/>
+    <path d="M150 34V206"/>
+    <path d="M118 56H194"/>
+    <path d="M126 116H180"/>
+  </g>
+  <g fill="#0E1218" transform="translate(172 208)">
+    <path d="M0-11 1.5-1.5 11 0 1.5 1.5 0 11-1.5 1.5-11 0-1.5-1.5Z"/>
+    <path transform="rotate(45)" d="M0-7 1.1-1.1 7 0 1.1 1.1 0 7-1.1 1.1-7 0-1.1-1.1Z"/>
+  </g>
+</svg>

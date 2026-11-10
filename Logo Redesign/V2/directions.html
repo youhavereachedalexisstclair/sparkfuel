@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spark Fuel — logo V2</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,560;12..96,700;12..96,800&family=Figtree:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --night: #0e1218;
+        --elev: #151b24;
+        --spark: #c8f235;
+        --mist: #e8edf5;
+        --dim: rgba(232, 237, 245, 0.68);
+        --line: rgba(232, 237, 245, 0.16);
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        background: var(--night);
+        color: var(--mist);
+        font-family: Figtree, sans-serif;
+        font-size: 16px;
+        line-height: 1.5;
+      }
+
+      .wrap {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 3.25rem 1.5rem 5rem;
+      }
+
+      .kicker {
+        margin: 0;
+        color: var(--spark);
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin: 0.55rem 0 0.85rem;
+        max-width: 14ch;
+        font-family: "Bricolage Grotesque", sans-serif;
+        font-size: clamp(2.4rem, 5vw, 3.6rem);
+        font-weight: 800;
+        letter-spacing: -0.035em;
+        line-height: 0.98;
+      }
+
+      .lede {
+        max-width: 40rem;
+        margin: 0;
+        color: var(--dim);
+        font-size: 1.05rem;
+      }
+
+      .lede strong { color: var(--mist); font-weight: 600; }
+
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        margin-top: 2rem;
+      }
+
+      .concept { background: var(--elev); padding: 0.85rem; }
+      .concept-wide { grid-column: 1 / -1; }
+
+      .concept header {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 0.35rem 0.45rem 0.8rem;
+      }
+
+      .concept h2 {
+        margin: 0;
+        font-family: "Bricolage Grotesque", sans-serif;
+        font-size: 1.15rem;
+        font-weight: 700;
+        letter-spacing: -0.03em;
+      }
+
+      .concept h2 span {
+        margin-right: 0.45rem;
+        color: var(--dim);
+        font-weight: 560;
+      }
+
+      .tag {
+        color: var(--spark);
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .stage {
+        display: grid;
+        place-items: center;
+        min-height: 250px;
+        padding: 2rem 1.25rem;
+        background: var(--night);
+        color: var(--spark);
+      }
+
+      .stamp {
+        display: grid;
+        justify-items: center;
+        gap: 0.85rem;
+      }
+
+      .stamp svg { width: 132px; height: 132px; }
+
+      .stamp span {
+        color: var(--mist);
+        font-family: "Bricolage Grotesque", sans-serif;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+      }
+
+      .note {
+        margin: 0.85rem 0.4rem 0.35rem;
+        color: var(--dim);
+        font-size: 0.92rem;
+      }
+
+      .uses {
+        display: grid;
+        grid-template-columns: 1.5fr 52px 1fr;
+        gap: 0.45rem;
+        margin-top: 0.75rem;
+      }
+
+      .use {
+        display: grid;
+        align-content: center;
+        min-height: 72px;
+        padding: 0.7rem 0.65rem;
+        background: var(--night);
+        color: var(--spark);
+      }
+
+      .use-light {
+        background: var(--mist);
+        color: var(--night);
+      }
+
+      .navmock {
+        display: flex;
+        align-items: center;
+        gap: 0.45rem;
+      }
+
+      .navmock svg { width: 22px; height: 22px; flex: none; }
+
+      .nav-name {
+        font-family: "Bricolage Grotesque", sans-serif;
+        font-weight: 800;
+        font-size: 15px;
+        letter-spacing: -0.04em;
+        color: var(--mist);
+        line-height: 1;
+      }
+
+      .use-light .nav-name { color: var(--night); }
+
+      .navlinks {
+        margin-left: auto;
+        color: rgba(232, 237, 245, 0.55);
+        font-size: 0.68rem;
+        white-space: nowrap;
+      }
+
+      .ico { place-items: center; }
+      .ico svg { width: 32px; height: 32px; display: block; }
+
+      .close {
+        margin: 1.75rem 0 0;
+        max-width: 40rem;
+        color: var(--dim);
+      }
+
+      @media (max-width: 800px) {
+        .grid { grid-template-columns: 1fr; }
+        .concept-wide { grid-column: auto; }
+        .navlinks { display: none; }
+        .stamp svg { width: 112px; height: 112px; }
+      }
+    </style>
+  </head>
+  <body>
+    <svg width="0" height="0" style="position: absolute" aria-hidden="true">
+      <symbol id="even" viewBox="0 0 64 64">
+        <path fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="butt" d="M49 17C49 7 15 7 15 21C15 29 25 32 28 30"/>
+        <path fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="butt" d="M36 36C39 34 49 36 49 45C49 57 15 57 15 45"/>
+      </symbol>
+      <symbol id="weight" viewBox="0 0 64 64">
+        <path fill="none" stroke="currentColor" stroke-width="6.5" stroke-linecap="butt" d="M50 16C50 6 14 7 14 20C14 28 24 31 29 29"/>
+        <path fill="none" stroke="currentColor" stroke-width="11" stroke-linecap="butt" d="M35 37C40 35 50 37 50 46C50 58 14 57 14 46"/>
+      </symbol>
+      <symbol id="wide" viewBox="0 0 64 64">
+        <path fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="butt" d="M49 17C49 7 15 7 15 21C15 27 22 29 25 28"/>
+        <path fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="butt" d="M39 40C43 37 49 38 49 45C49 57 15 57 15 45"/>
+      </symbol>
+    </svg>
+
+    <div class="wrap">
+      <p class="kicker">Logo redesign · V2</p>
+      <h1>The spark is the gap.</h1>
+      <p class="lede">
+        V1 set <strong>Spark Fuel</strong> in the site font and parked the star between the words.
+        This round is a drawn mark. An S, cut in two. The halves don’t touch, and that opening is the spark.
+        No star, no second color, no “Co.”
+      </p>
+
+      <div class="grid">
+        <article class="concept">
+          <header>
+            <h2><span>01</span>Even</h2>
+            <span class="tag">Start here</span>
+          </header>
+          <div class="stage">
+            <div class="stamp">
+              <svg viewBox="0 0 64 64"><use href="#even" width="64" height="64"/></svg>
+              <span>Spark Fuel</span>
+            </div>
+          </div>
+          <p class="note">Same weight on both halves, with a clean break through the middle. Reads as an S up close and as a mark when it’s small. This is the one I’d carry into the nav and the favicon.</p>
+          <div class="uses">
+            <div class="use">
+              <div class="navmock">
+                <svg viewBox="0 0 64 64"><use href="#even" width="64" height="64"/></svg>
+                <span class="nav-name">Spark Fuel</span>
+                <span class="navlinks">About · Services · Work</span>
+              </div>
+            </div>
+            <div class="use ico">
+              <svg viewBox="0 0 32 32" aria-hidden="true">
+                <rect width="32" height="32" rx="8" fill="#0e1218"/>
+                <use href="#even" x="4" y="4" width="24" height="24"/>
+              </svg>
+            </div>
+            <div class="use use-light">
+              <div class="navmock">
+                <svg viewBox="0 0 64 64"><use href="#even" width="64" height="64"/></svg>
+                <span class="nav-name">Spark Fuel</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="concept">
+          <header>
+            <h2><span>02</span>Weight</h2>
+            <span class="tag">Spark into fuel</span>
+          </header>
+          <div class="stage">
+            <div class="stamp">
+              <svg viewBox="0 0 64 64"><use href="#weight" width="64" height="64"/></svg>
+              <span>Spark Fuel</span>
+            </div>
+          </div>
+          <p class="note">The top stroke is lighter and the bottom stroke is heavier, so the letter gains weight as it lands. More particular than Even. The thin stroke is the first thing to disappear at favicon size.</p>
+          <div class="uses">
+            <div class="use">
+              <div class="navmock">
+                <svg viewBox="0 0 64 64"><use href="#weight" width="64" height="64"/></svg>
+                <span class="nav-name">Spark Fuel</span>
+                <span class="navlinks">About · Services · Work</span>
+              </div>
+            </div>
+            <div class="use ico">
+              <svg viewBox="0 0 32 32" aria-hidden="true">
+                <rect width="32" height="32" rx="8" fill="#0e1218"/>
+                <use href="#weight" x="4" y="4" width="24" height="24"/>
+              </svg>
+            </div>
+            <div class="use use-light">
+              <div class="navmock">
+                <svg viewBox="0 0 64 64"><use href="#weight" width="64" height="64"/></svg>
+                <span class="nav-name">Spark Fuel</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="concept concept-wide">
+          <header>
+            <h2><span>03</span>Wide</h2>
+            <span class="tag">More abstract</span>
+          </header>
+          <div class="stage">
+            <div class="stamp">
+              <svg viewBox="0 0 64 64"><use href="#wide" width="64" height="64"/></svg>
+              <span>Spark Fuel</span>
+            </div>
+          </div>
+          <p class="note">The same two strokes, pulled farther apart. Less of a letter, more of a mark. If Even feels too much like type, this is the same idea with the gap doing more of the work.</p>
+          <div class="uses">
+            <div class="use">
+              <div class="navmock">
+                <svg viewBox="0 0 64 64"><use href="#wide" width="64" height="64"/></svg>
+                <span class="nav-name">Spark Fuel</span>
+                <span class="navlinks">About · Services · Work</span>
+              </div>
+            </div>
+            <div class="use ico">
+              <svg viewBox="0 0 32 32" aria-hidden="true">
+                <rect width="32" height="32" rx="8" fill="#0e1218"/>
+                <use href="#wide" x="4" y="4" width="24" height="24"/>
+              </svg>
+            </div>
+            <div class="use use-light">
+              <div class="navmock">
+                <svg viewBox="0 0 64 64"><use href="#wide" width="64" height="64"/></svg>
+                <span class="nav-name">Spark Fuel</span>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <p class="close">The mark files are even.svg, weight.svg, and wide.svg. Nothing on the live site has changed.</p>
+    </div>
+  </body>
+</html>

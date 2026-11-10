@@ -1,0 +1,592 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spark Fuel — logo V1</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,560;12..96,700;12..96,800&family=Figtree:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --night: #0e1218;
+        --elev: #151b24;
+        --spark: #c8f235;
+        --signal: #4b7cf0;
+        --mist: #e8edf5;
+        --dim: rgba(232, 237, 245, 0.68);
+        --faint: rgba(232, 237, 245, 0.14);
+        --line: rgba(232, 237, 245, 0.16);
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        background: var(--night);
+        color: var(--mist);
+        font-family: Figtree, sans-serif;
+        font-size: 16px;
+        line-height: 1.5;
+      }
+
+      .wrap {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 3.25rem 1.5rem 5rem;
+      }
+
+      .kicker {
+        margin: 0;
+        color: var(--spark);
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin: 0.55rem 0 0.85rem;
+        max-width: 16ch;
+        font-family: "Bricolage Grotesque", sans-serif;
+        font-size: clamp(2.4rem, 5vw, 3.6rem);
+        font-weight: 800;
+        letter-spacing: -0.035em;
+        line-height: 0.98;
+      }
+
+      .lede {
+        max-width: 40rem;
+        margin: 0;
+        color: var(--dim);
+        font-size: 1.05rem;
+      }
+
+      .lede strong { color: var(--mist); font-weight: 600; }
+
+      .now {
+        display: grid;
+        grid-template-columns: 1.3fr 0.9fr;
+        gap: 1rem;
+        margin-top: 2.25rem;
+      }
+
+      .panel {
+        background: var(--elev);
+        padding: 1rem;
+      }
+
+      .panel figcaption,
+      .label {
+        margin: 0.75rem 0 0;
+        color: var(--dim);
+        font-size: 0.78rem;
+        letter-spacing: 0.01em;
+      }
+
+      .old-stage {
+        display: grid;
+        place-items: center;
+        min-height: 180px;
+        padding: 0.5rem 1rem;
+        background: var(--night);
+      }
+
+      .old-stage img {
+        width: min(100%, 420px);
+        height: auto;
+      }
+
+      .swatches {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.45rem 0.9rem;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .swatches li {
+        display: flex;
+        align-items: center;
+        gap: 0.45rem;
+        color: var(--dim);
+        font-size: 0.78rem;
+      }
+
+      .chip {
+        width: 0.85rem;
+        height: 0.85rem;
+        border: 1px solid var(--line);
+      }
+
+      .speaks {
+        display: grid;
+        align-content: center;
+        gap: 1.1rem;
+        min-height: 180px;
+        padding: 1.25rem 1.1rem;
+        background: var(--night);
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+
+      .concept { background: var(--elev); padding: 0.85rem; }
+
+      .concept header {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 0.35rem 0.45rem 0.8rem;
+      }
+
+      .concept h2 {
+        margin: 0;
+        font-family: "Bricolage Grotesque", sans-serif;
+        font-size: 1.15rem;
+        font-weight: 700;
+        letter-spacing: -0.03em;
+      }
+
+      .concept h2 span {
+        margin-right: 0.45rem;
+        color: var(--dim);
+        font-weight: 560;
+      }
+
+      .tag {
+        color: var(--spark);
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .stage {
+        display: grid;
+        place-items: center;
+        min-height: 230px;
+        padding: 1.75rem 1.25rem;
+        background: var(--night);
+      }
+
+      .note {
+        margin: 0.85rem 0.4rem 0.35rem;
+        color: var(--dim);
+        font-size: 0.92rem;
+      }
+
+      .uses {
+        display: grid;
+        grid-template-columns: 1.4fr 52px 0.9fr;
+        gap: 0.45rem;
+        margin-top: 0.75rem;
+      }
+
+      .use {
+        display: grid;
+        align-content: center;
+        min-height: 72px;
+        padding: 0.7rem 0.65rem;
+        background: var(--night);
+      }
+
+      .use-light {
+        background: var(--mist);
+        color: var(--night);
+      }
+
+      .navmock {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.5rem;
+      }
+
+      .navlinks {
+        color: rgba(232, 237, 245, 0.55);
+        font-size: 0.68rem;
+        white-space: nowrap;
+      }
+
+      .ico {
+        display: grid;
+        place-items: center;
+      }
+
+      .ico svg { width: 32px; height: 32px; display: block; }
+
+      .spark { display: block; color: var(--spark); }
+
+      .lockup {
+        display: flex;
+        align-items: center;
+        gap: 0.22em;
+        font-family: "Bricolage Grotesque", sans-serif;
+        font-weight: 800;
+        letter-spacing: -0.045em;
+        line-height: 0.9;
+        color: var(--mist);
+      }
+
+      .lockup .spark {
+        width: 0.46em;
+        height: 0.46em;
+        flex: none;
+      }
+
+      .stage .lockup { font-size: 58px; }
+      .navmock .lockup { font-size: 15px; gap: 0.28em; }
+      .navmock .lockup .spark { width: 0.72em; height: 0.72em; }
+      .use-light .lockup { color: var(--night); font-size: 22px; }
+      .use-light .spark { color: var(--night); }
+
+      .stack { width: max-content; }
+
+      .stack-kicker {
+        display: block;
+        margin: 0 0 0.12em 0.06em;
+        color: var(--dim);
+        font-family: "Bricolage Grotesque", sans-serif;
+        font-size: 0.34em;
+        font-weight: 560;
+        letter-spacing: 0.34em;
+        line-height: 1;
+        text-transform: uppercase;
+      }
+
+      .stack-fuel {
+        display: flex;
+        align-items: center;
+        gap: 0.08em;
+        color: var(--spark);
+        font-family: "Bricolage Grotesque", sans-serif;
+        font-size: 1em;
+        font-weight: 800;
+        letter-spacing: -0.055em;
+        line-height: 0.8;
+      }
+
+      .stack-fuel .spark { width: 0.28em; height: 0.28em; }
+
+      .stage .stack { font-size: 84px; }
+      .navmock .stack { font-size: 18px; }
+      .navmock .stack-kicker { letter-spacing: 0.18em; }
+      .use-light .stack { font-size: 28px; }
+      .use-light .stack-kicker,
+      .use-light .stack-fuel,
+      .use-light .spark { color: var(--night); }
+
+      .mark {
+        display: grid;
+        justify-items: center;
+        gap: 0.7rem;
+      }
+
+      .mark .spark { width: 92px; height: 92px; }
+      .navmock .mark .spark { width: 16px; height: 16px; }
+      .use-light .mark .spark { width: 28px; height: 28px; color: var(--night); }
+
+      .mark-name {
+        color: var(--mist);
+        font-family: "Bricolage Grotesque", sans-serif;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+      }
+
+      .navmock .mark {
+        grid-auto-flow: column;
+        align-items: center;
+        gap: 0.4rem;
+      }
+
+      .navmock .mark-name {
+        font-size: 13px;
+        letter-spacing: -0.03em;
+        text-transform: none;
+      }
+
+      .use-light .mark {
+        grid-auto-flow: column;
+        align-items: center;
+        gap: 0.45rem;
+      }
+
+      .use-light .mark-name {
+        color: var(--night);
+        font-size: 12px;
+        letter-spacing: 0.08em;
+        white-space: nowrap;
+      }
+
+      .streak { width: max-content; }
+
+      .streak-words {
+        color: var(--mist);
+        font-family: "Bricolage Grotesque", sans-serif;
+        font-weight: 800;
+        letter-spacing: -0.045em;
+        line-height: 0.9;
+      }
+
+      .streak-line {
+        display: flex;
+        align-items: center;
+        margin-top: 0.16em;
+        color: var(--spark);
+      }
+
+      .streak-line .bar {
+        height: 0.055em;
+        min-height: 2px;
+        flex: 1;
+        background: currentColor;
+      }
+
+      .streak-line .spark {
+        width: 0.34em;
+        height: 0.34em;
+        margin-left: -0.08em;
+        flex: none;
+      }
+
+      .stage .streak-words { font-size: 54px; }
+      .stage .streak-line .spark { width: 22px; height: 22px; }
+      .stage .streak-line .bar { height: 3px; }
+
+      .navmock .streak-words { font-size: 15px; }
+      .navmock .streak-line { margin-top: 1px; }
+      .navmock .streak-line .bar { height: 1.5px; min-height: 0; }
+      .navmock .streak-line .spark { width: 8px; height: 8px; margin-left: -2px; }
+
+      .use-light .streak-words,
+      .use-light .streak-line { color: var(--night); }
+      .use-light .streak-words { font-size: 22px; }
+      .use-light .streak-line .spark { width: 12px; height: 12px; }
+      .use-light .streak-line .bar { height: 2px; }
+
+      .close {
+        margin: 1.75rem 0 0;
+        max-width: 40rem;
+        color: var(--dim);
+      }
+
+      @media (max-width: 800px) {
+        .now, .grid { grid-template-columns: 1fr; }
+        .stage .lockup { font-size: 44px; }
+        .stage .stack { font-size: 72px; }
+        .stage .streak-words { font-size: 42px; }
+        .navlinks { display: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <p class="kicker">Logo redesign · V1</p>
+      <h1>The spark can stay. The script can’t.</h1>
+      <p class="lede">
+        The hero is still the rounded <strong>Spark Fuel Co</strong> lettering, teal with a small olive “co.”
+        The rest of the site is night, chartreuse, and Bricolage, and the eight-point spark
+        is already the symbol. These four drop that lettering and the “Co.” I’d build
+        <strong>Inline</strong> as the logo. Stack and Streak are louder hero treatments of the same idea.
+      </p>
+
+      <div class="now">
+        <figure class="panel">
+          <div class="old-stage">
+            <img src="../../src/assets/brand/wordmark.svg" alt="Current Spark Fuel Co script wordmark" />
+          </div>
+          <figcaption>What’s in the hero now. Soft rounded lettering, in two colors the site never uses.</figcaption>
+        </figure>
+        <div class="panel">
+          <div class="speaks">
+            <ul class="swatches">
+              <li><i class="chip" style="background:#6ba6bd"></i> Teal #6BA6BD</li>
+              <li><i class="chip" style="background:#9eb82d"></i> Olive #9EB82D</li>
+            </ul>
+            <ul class="swatches">
+              <li><i class="chip" style="background:#0e1218"></i> Night</li>
+              <li><i class="chip" style="background:#c8f235"></i> Spark</li>
+              <li><i class="chip" style="background:#4b7cf0"></i> Signal</li>
+              <li><i class="chip" style="background:#e8edf5"></i> Mist</li>
+            </ul>
+            <p class="label">Chartreuse disappears on mist, so anything that has to live on white — a signature, a sticker, a deck — should flip to night ink.</p>
+          </div>
+          <p class="label">First the current palette, then the site’s.</p>
+        </div>
+      </div>
+
+      <div class="grid">
+        <article class="concept">
+          <header>
+            <h2><span>01</span>Inline</h2>
+            <span class="tag">Start here</span>
+          </header>
+          <div class="stage">
+            <div class="lockup">
+              Spark
+              <svg class="spark" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M32 2.5 36.8 24.2 58.5 32 36.8 39.8 32 61.5 27.2 39.8 5.5 32 27.2 24.2 32 2.5Z"/><path fill="currentColor" opacity="0.55" d="M32 14.5 34.6 27.4 47.5 32 34.6 36.6 32 49.5 29.4 36.6 16.5 32 29.4 27.4 32 14.5Z"/></svg>
+              Fuel
+            </div>
+          </div>
+          <p class="note">The nav lockup, at hero size. Mist type, chartreuse spark as the space between the words. One system from favicon to headline.</p>
+          <div class="uses">
+            <div class="use">
+              <div class="navmock">
+                <div class="lockup">
+                  Spark
+                  <svg class="spark" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M32 2.5 36.8 24.2 58.5 32 36.8 39.8 32 61.5 27.2 39.8 5.5 32 27.2 24.2 32 2.5Z"/><path fill="currentColor" opacity="0.55" d="M32 14.5 34.6 27.4 47.5 32 34.6 36.6 32 49.5 29.4 36.6 16.5 32 29.4 27.4 32 14.5Z"/></svg>
+                  Fuel
+                </div>
+                <span class="navlinks">About · Services · Work</span>
+              </div>
+            </div>
+            <div class="use ico">
+              <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#0e1218"/><path fill="#c8f235" transform="translate(4 4) scale(0.375)" d="M32 2.5 36.8 24.2 58.5 32 36.8 39.8 32 61.5 27.2 39.8 5.5 32 27.2 24.2 32 2.5Z"/><path fill="#c8f235" opacity="0.55" transform="translate(4 4) scale(0.375)" d="M32 14.5 34.6 27.4 47.5 32 34.6 36.6 32 49.5 29.4 36.6 16.5 32 29.4 27.4 32 14.5Z"/></svg>
+            </div>
+            <div class="use use-light">
+              <div class="lockup">
+                Spark
+                <svg class="spark" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M32 2.5 36.8 24.2 58.5 32 36.8 39.8 32 61.5 27.2 39.8 5.5 32 27.2 24.2 32 2.5Z"/><path fill="currentColor" opacity="0.55" d="M32 14.5 34.6 27.4 47.5 32 34.6 36.6 32 49.5 29.4 36.6 16.5 32 29.4 27.4 32 14.5Z"/></svg>
+                Fuel
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="concept">
+          <header>
+            <h2><span>02</span>Stack</h2>
+            <span class="tag">Hero only</span>
+          </header>
+          <div class="stage">
+            <div class="stack">
+              <span class="stack-kicker">Spark</span>
+              <span class="stack-fuel">
+                Fuel
+                <svg class="spark" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M32 2.5 36.8 24.2 58.5 32 36.8 39.8 32 61.5 27.2 39.8 5.5 32 27.2 24.2 32 2.5Z"/><path fill="currentColor" opacity="0.55" d="M32 14.5 34.6 27.4 47.5 32 34.6 36.6 32 49.5 29.4 36.6 16.5 32 29.4 27.4 32 14.5Z"/></svg>
+              </span>
+            </div>
+          </div>
+          <p class="note">Spends the chartreuse on the word Fuel. Poster-like in the hero, clumsy in a nav, so it would sit on top of Inline, not replace it.</p>
+          <div class="uses">
+            <div class="use">
+              <div class="navmock">
+                <div class="stack">
+                  <span class="stack-kicker">Spark</span>
+                  <span class="stack-fuel">
+                    Fuel
+                    <svg class="spark" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M32 2.5 36.8 24.2 58.5 32 36.8 39.8 32 61.5 27.2 39.8 5.5 32 27.2 24.2 32 2.5Z"/><path fill="currentColor" opacity="0.55" d="M32 14.5 34.6 27.4 47.5 32 34.6 36.6 32 49.5 29.4 36.6 16.5 32 29.4 27.4 32 14.5Z"/></svg>
+                  </span>
+                </div>
+                <span class="navlinks">About · Services · Work</span>
+              </div>
+            </div>
+            <div class="use ico">
+              <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#0e1218"/><path fill="#c8f235" transform="translate(4 4) scale(0.375)" d="M32 2.5 36.8 24.2 58.5 32 36.8 39.8 32 61.5 27.2 39.8 5.5 32 27.2 24.2 32 2.5Z"/><path fill="#c8f235" opacity="0.55" transform="translate(4 4) scale(0.375)" d="M32 14.5 34.6 27.4 47.5 32 34.6 36.6 32 49.5 29.4 36.6 16.5 32 29.4 27.4 32 14.5Z"/></svg>
+            </div>
+            <div class="use use-light">
+              <div class="stack">
+                <span class="stack-kicker">Spark</span>
+                <span class="stack-fuel">
+                  Fuel
+                  <svg class="spark" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M32 2.5 36.8 24.2 58.5 32 36.8 39.8 32 61.5 27.2 39.8 5.5 32 27.2 24.2 32 2.5Z"/><path fill="currentColor" opacity="0.55" d="M32 14.5 34.6 27.4 47.5 32 34.6 36.6 32 49.5 29.4 36.6 16.5 32 29.4 27.4 32 14.5Z"/></svg>
+                </span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="concept">
+          <header>
+            <h2><span>03</span>Mark</h2>
+            <span class="tag">Symbol first</span>
+          </header>
+          <div class="stage">
+            <div class="mark">
+              <svg class="spark" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M32 2.5 36.8 24.2 58.5 32 36.8 39.8 32 61.5 27.2 39.8 5.5 32 27.2 24.2 32 2.5Z"/><path fill="currentColor" opacity="0.55" d="M32 14.5 34.6 27.4 47.5 32 34.6 36.6 32 49.5 29.4 36.6 16.5 32 29.4 27.4 32 14.5Z"/></svg>
+              <span class="mark-name">Spark Fuel</span>
+            </div>
+          </div>
+          <p class="note">The favicon, scaled up, with the name set small underneath. Clearest as a stamp. The star is a common shape, so this only works if the double spark stays exact.</p>
+          <div class="uses">
+            <div class="use">
+              <div class="navmock">
+                <div class="mark">
+                  <svg class="spark" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M32 2.5 36.8 24.2 58.5 32 36.8 39.8 32 61.5 27.2 39.8 5.5 32 27.2 24.2 32 2.5Z"/><path fill="currentColor" opacity="0.55" d="M32 14.5 34.6 27.4 47.5 32 34.6 36.6 32 49.5 29.4 36.6 16.5 32 29.4 27.4 32 14.5Z"/></svg>
+                  <span class="mark-name">Spark Fuel</span>
+                </div>
+                <span class="navlinks">About · Services · Work</span>
+              </div>
+            </div>
+            <div class="use ico">
+              <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#0e1218"/><path fill="#c8f235" transform="translate(4 4) scale(0.375)" d="M32 2.5 36.8 24.2 58.5 32 36.8 39.8 32 61.5 27.2 39.8 5.5 32 27.2 24.2 32 2.5Z"/><path fill="#c8f235" opacity="0.55" transform="translate(4 4) scale(0.375)" d="M32 14.5 34.6 27.4 47.5 32 34.6 36.6 32 49.5 29.4 36.6 16.5 32 29.4 27.4 32 14.5Z"/></svg>
+            </div>
+            <div class="use use-light">
+              <div class="mark">
+                <svg class="spark" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M32 2.5 36.8 24.2 58.5 32 36.8 39.8 32 61.5 27.2 39.8 5.5 32 27.2 24.2 32 2.5Z"/><path fill="currentColor" opacity="0.55" d="M32 14.5 34.6 27.4 47.5 32 34.6 36.6 32 49.5 29.4 36.6 16.5 32 29.4 27.4 32 14.5Z"/></svg>
+                <span class="mark-name">Spark Fuel</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="concept">
+          <header>
+            <h2><span>04</span>Streak</h2>
+            <span class="tag">Motion</span>
+          </header>
+          <div class="stage">
+            <div class="streak">
+              <div class="streak-words">Spark Fuel</div>
+              <div class="streak-line">
+                <span class="bar"></span>
+                <svg class="spark" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M32 2.5 36.8 24.2 58.5 32 36.8 39.8 32 61.5 27.2 39.8 5.5 32 27.2 24.2 32 2.5Z"/><path fill="currentColor" opacity="0.55" d="M32 14.5 34.6 27.4 47.5 32 34.6 36.6 32 49.5 29.4 36.6 16.5 32 29.4 27.4 32 14.5Z"/></svg>
+              </div>
+            </div>
+          </div>
+          <p class="note">The name in mist, then a chartreuse line that ends in the spark. Same gesture as the scroll streaks. The line gets thin in the nav, so Inline is still the small-size version.</p>
+          <div class="uses">
+            <div class="use">
+              <div class="navmock">
+                <div class="streak">
+                  <div class="streak-words">Spark Fuel</div>
+                  <div class="streak-line">
+                    <span class="bar"></span>
+                    <svg class="spark" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M32 2.5 36.8 24.2 58.5 32 36.8 39.8 32 61.5 27.2 39.8 5.5 32 27.2 24.2 32 2.5Z"/><path fill="currentColor" opacity="0.55" d="M32 14.5 34.6 27.4 47.5 32 34.6 36.6 32 49.5 29.4 36.6 16.5 32 29.4 27.4 32 14.5Z"/></svg>
+                  </div>
+                </div>
+                <span class="navlinks">About · Services · Work</span>
+              </div>
+            </div>
+            <div class="use ico">
+              <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#0e1218"/><path fill="#c8f235" transform="translate(4 4) scale(0.375)" d="M32 2.5 36.8 24.2 58.5 32 36.8 39.8 32 61.5 27.2 39.8 5.5 32 27.2 24.2 32 2.5Z"/><path fill="#c8f235" opacity="0.55" transform="translate(4 4) scale(0.375)" d="M32 14.5 34.6 27.4 47.5 32 34.6 36.6 32 49.5 29.4 36.6 16.5 32 29.4 27.4 32 14.5Z"/></svg>
+            </div>
+            <div class="use use-light">
+              <div class="streak">
+                <div class="streak-words">Spark Fuel</div>
+                <div class="streak-line">
+                  <span class="bar"></span>
+                  <svg class="spark" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M32 2.5 36.8 24.2 58.5 32 36.8 39.8 32 61.5 27.2 39.8 5.5 32 27.2 24.2 32 2.5Z"/><path fill="currentColor" opacity="0.55" d="M32 14.5 34.6 27.4 47.5 32 34.6 36.6 32 49.5 29.4 36.6 16.5 32 29.4 27.4 32 14.5Z"/></svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <p class="close">Nothing on the live site has changed. If one of these feels close, we can put it in the hero and the nav and tune the spacing there.</p>
+    </div>
+  </body>
+</html>
