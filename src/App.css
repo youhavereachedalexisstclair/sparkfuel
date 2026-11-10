@@ -1,6 +1,9 @@
-html.has-magnetic-cursor,
-html.has-magnetic-cursor * {
-  cursor: none !important;
+html.has-magnetic-cursor {
+  cursor: none;
+}
+
+html.has-magnetic-cursor :is(a, button, label, summary, [role='button'], [data-magnetic]) {
+  cursor: none;
 }
 
 .magnetic-cursor {
@@ -26,16 +29,14 @@ html.has-magnetic-cursor * {
 
 .magnetic-cursor-aura {
   display: block;
-  width: 160px;
-  height: 160px;
-  margin: -80px 0 0 -80px;
+  width: 200px;
+  height: 200px;
+  margin: -100px 0 0 -100px;
   border-radius: 50%;
   background:
-    radial-gradient(circle, rgba(200, 242, 53, 0.22) 0%, transparent 58%),
-    radial-gradient(circle at 40% 35%, rgba(75, 124, 240, 0.28) 0%, transparent 62%);
-  filter: blur(18px);
-  opacity: 0.75;
-  mix-blend-mode: screen;
+    radial-gradient(circle, rgba(200, 242, 53, 0.28) 0%, rgba(200, 242, 53, 0.1) 32%, transparent 64%),
+    radial-gradient(circle at 40% 35%, rgba(75, 124, 240, 0.32) 0%, rgba(75, 124, 240, 0.1) 38%, transparent 68%);
+  opacity: 0.8;
   transition:
     width 0.35s cubic-bezier(0.22, 1, 0.36, 1),
     height 0.35s cubic-bezier(0.22, 1, 0.36, 1),
@@ -48,13 +49,12 @@ html.has-magnetic-cursor * {
   position: absolute;
   top: 0;
   left: 0;
-  width: 72px;
-  height: 72px;
-  margin: -36px 0 0 -36px;
-  filter: blur(8px);
+  width: 96px;
+  height: 96px;
+  margin: -48px 0 0 -48px;
   opacity: 0.9;
   background:
-    radial-gradient(circle, rgba(200, 242, 53, 0.45) 0%, transparent 70%);
+    radial-gradient(circle, rgba(200, 242, 53, 0.5) 0%, rgba(200, 242, 53, 0.16) 42%, transparent 72%);
   animation-duration: 3.2s;
 }
 
@@ -100,10 +100,9 @@ html.has-magnetic-cursor * {
   height: 8px;
   margin: -4px 0 0 -4px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(200, 242, 53, 0.85), transparent 70%);
-  box-shadow: 0 0 12px rgba(200, 242, 53, 0.45);
+  background: radial-gradient(circle, rgba(200, 242, 53, 0.9) 0%, rgba(200, 242, 53, 0.35) 42%, transparent 72%);
   pointer-events: none;
-  animation: trail-fade 0.45s ease-out forwards;
+  opacity: 0;
 }
 
 .magnetic-cursor-nova {
@@ -115,9 +114,8 @@ html.has-magnetic-cursor * {
   margin: -6px 0 0 -6px;
   pointer-events: none;
   border-radius: 50%;
-  background: radial-gradient(circle, currentColor 0%, transparent 70%);
-  box-shadow: 0 0 10px currentColor;
-  animation: nova-fade 0.7s ease-out forwards;
+  background: currentColor;
+  opacity: 0;
   /* 4-point spark approximation */
   clip-path: polygon(50% 0%, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0% 50%, 38% 38%);
 }
@@ -131,27 +129,36 @@ html.has-magnetic-cursor * {
   height: 14px;
   margin: -7px 0 0 -7px;
   color: var(--spark);
-  filter: drop-shadow(0 0 10px rgba(200, 242, 53, 0.7));
   transition:
     width 0.28s cubic-bezier(0.22, 1, 0.36, 1),
     height 0.28s cubic-bezier(0.22, 1, 0.36, 1),
     margin 0.28s cubic-bezier(0.22, 1, 0.36, 1),
     color 0.25s ease,
-    filter 0.25s ease,
     opacity 0.25s ease;
 }
 
+.magnetic-cursor-inner::before {
+  content: "";
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  margin: -18px 0 0 -18px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(200, 242, 53, 0.55), transparent 70%);
+  pointer-events: none;
+}
+
 .magnetic-cursor.is-hover .magnetic-cursor-aura {
-  width: 210px;
-  height: 210px;
-  margin: -105px 0 0 -105px;
+  width: 250px;
+  height: 250px;
+  margin: -125px 0 0 -125px;
   opacity: 0.95;
 }
 
 .magnetic-cursor.is-hover .magnetic-cursor-aura--core {
-  width: 96px;
-  height: 96px;
-  margin: -48px 0 0 -48px;
+  width: 124px;
+  height: 124px;
+  margin: -62px 0 0 -62px;
 }
 
 .magnetic-cursor.is-hover .magnetic-cursor-ring {
@@ -169,17 +176,16 @@ html.has-magnetic-cursor * {
   height: 18px;
   margin: -9px 0 0 -9px;
   color: var(--spark-soft);
-  filter: drop-shadow(0 0 16px rgba(200, 242, 53, 0.95));
 }
 
 .magnetic-cursor.is-pressed .magnetic-cursor-aura {
-  width: 120px;
-  height: 120px;
-  margin: -60px 0 0 -60px;
+  width: 150px;
+  height: 150px;
+  margin: -75px 0 0 -75px;
   opacity: 1;
   background:
-    radial-gradient(circle, rgba(75, 124, 240, 0.35) 0%, transparent 58%),
-    radial-gradient(circle at 40% 35%, rgba(200, 242, 53, 0.3) 0%, transparent 62%);
+    radial-gradient(circle, rgba(75, 124, 240, 0.38) 0%, rgba(75, 124, 240, 0.12) 36%, transparent 64%),
+    radial-gradient(circle at 40% 35%, rgba(200, 242, 53, 0.32) 0%, rgba(200, 242, 53, 0.1) 40%, transparent 68%);
 }
 
 .magnetic-cursor.is-pressed .magnetic-cursor-ring {
@@ -197,7 +203,14 @@ html.has-magnetic-cursor * {
   height: 22px;
   margin: -11px 0 0 -11px;
   color: var(--signal-soft);
-  filter: drop-shadow(0 0 18px rgba(75, 124, 240, 0.8));
+}
+
+.magnetic-cursor.is-hover .magnetic-cursor-inner::before {
+  background: radial-gradient(circle, rgba(200, 242, 53, 0.7), transparent 70%);
+}
+
+.magnetic-cursor.is-pressed .magnetic-cursor-inner::before {
+  background: radial-gradient(circle, rgba(122, 160, 255, 0.7), transparent 70%);
 }
 
 .mobile-scroll-spark {
@@ -216,77 +229,93 @@ html.has-magnetic-cursor * {
   z-index: -1;
   pointer-events: none;
   overflow: hidden;
+  contain: layout paint;
 }
 
 .glow {
   position: absolute;
   border-radius: 50%;
-  filter: blur(90px);
   opacity: 0.5;
   animation: drift 16s ease-in-out infinite alternate;
 }
 
 .glow-a {
-  width: min(55vw, 560px);
-  height: min(55vw, 560px);
-  top: -10%;
-  right: -8%;
-  background: radial-gradient(circle, rgba(75, 124, 240, 0.55), transparent 70%);
+  width: min(78vw, 820px);
+  height: min(78vw, 820px);
+  top: -20%;
+  right: -16%;
+  background: radial-gradient(
+    circle,
+    rgba(75, 124, 240, 0.5) 0%,
+    rgba(75, 124, 240, 0.2) 30%,
+    rgba(75, 124, 240, 0.06) 50%,
+    transparent 72%
+  );
   opacity: calc(0.08 + var(--ignition, 0) * 0.72);
 }
 
 .glow-b {
-  width: min(60vw, 640px);
-  height: min(60vw, 640px);
-  bottom: 8%;
-  left: -14%;
-  background: radial-gradient(circle, rgba(200, 242, 53, 0.28), transparent 70%);
+  width: min(82vw, 900px);
+  height: min(82vw, 900px);
+  bottom: -4%;
+  left: -22%;
+  background: radial-gradient(
+    circle,
+    rgba(200, 242, 53, 0.26) 0%,
+    rgba(200, 242, 53, 0.1) 32%,
+    rgba(200, 242, 53, 0.03) 52%,
+    transparent 72%
+  );
   animation-delay: -4s;
   opacity: calc(0.05 + var(--fuel, 0) * 0.55 + var(--ignition, 0) * 0.45);
 }
 
 .glow-c {
-  width: min(40vw, 420px);
-  height: min(40vw, 420px);
-  top: 40%;
-  left: 40%;
-  background: radial-gradient(circle, rgba(232, 237, 245, 0.12), transparent 70%);
+  width: min(56vw, 600px);
+  height: min(56vw, 600px);
+  top: 32%;
+  left: 32%;
+  background: radial-gradient(
+    circle,
+    rgba(232, 237, 245, 0.14) 0%,
+    rgba(232, 237, 245, 0.05) 40%,
+    transparent 70%
+  );
   animation-delay: -8s;
   opacity: calc(0.05 + var(--ignition, 0) * 0.7);
   translate: calc(var(--pointer-x, 0) * 48px) calc(var(--pointer-y, 0) * 36px);
-  transition: translate 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .pointer-bloom {
   position: absolute;
-  width: min(55vw, 480px);
-  height: min(55vw, 480px);
-  left: calc(50% + var(--pointer-x, 0) * 70%);
-  top: calc(50% + var(--pointer-y, 0) * 60%);
-  translate: -50% -50%;
+  width: min(62vw, 560px);
+  height: min(62vw, 560px);
+  left: 50%;
+  top: 50%;
   border-radius: 50%;
   background:
-    radial-gradient(circle, rgba(200, 242, 53, 0.14) 0%, transparent 55%),
-    radial-gradient(circle at 60% 40%, rgba(75, 124, 240, 0.16) 0%, transparent 60%);
-  opacity: 0.55;
-  filter: blur(28px);
+    radial-gradient(circle, rgba(200, 242, 53, 0.16) 0%, rgba(200, 242, 53, 0.05) 36%, transparent 64%),
+    radial-gradient(circle at 60% 40%, rgba(75, 124, 240, 0.18) 0%, rgba(75, 124, 240, 0.05) 42%, transparent 68%);
+  opacity: 0.6;
   pointer-events: none;
-  transition: left 0.55s cubic-bezier(0.22, 1, 0.36, 1), top 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translate3d(
+    calc(-50% + var(--pointer-x, 0) * 35vw),
+    calc(-50% + var(--pointer-y, 0) * 30vh),
+    0
+  );
 }
 
 .glow-ignite {
-  width: min(100vw, 960px);
-  height: min(100vw, 960px);
+  width: min(110vw, 1080px);
+  height: min(110vw, 1080px);
   left: 50%;
-  bottom: -24%;
-  translate: -50% 0;
+  bottom: -28%;
   background:
-    radial-gradient(circle, rgba(200, 242, 53, 0.28) 0%, transparent 55%),
-    radial-gradient(circle at 40% 40%, rgba(75, 124, 240, 0.28) 0%, transparent 60%);
+    radial-gradient(circle, rgba(200, 242, 53, 0.26) 0%, rgba(200, 242, 53, 0.08) 36%, transparent 62%),
+    radial-gradient(circle at 40% 40%, rgba(75, 124, 240, 0.24) 0%, rgba(75, 124, 240, 0.07) 42%, transparent 66%);
   opacity: calc(var(--finale, 0) * 0.85 + var(--ignition, 0) * 0.12);
-  filter: blur(42px);
   animation: none;
-  transform: scale(calc(0.7 + var(--finale, 0) * 0.5));
+  transform: translate3d(-50%, 0, 0) scale(calc(0.7 + var(--finale, 0) * 0.5));
 }
 
 .star-veil {
@@ -393,6 +422,7 @@ html.has-magnetic-cursor * {
   inset: -4%;
   width: 108%;
   height: 108%;
+  contain: layout;
   transition: opacity 0.25s ease;
 }
 
@@ -438,21 +468,40 @@ html.has-magnetic-cursor * {
   animation-delay: var(--twinkle-delay, 0s);
 }
 
-.sky-spark--dust {
-  filter: drop-shadow(0 0 calc(2px + var(--finale, 0) * 6px) rgba(200, 242, 53, 0.3));
-  opacity: calc(0.35 + var(--ignition, 0) * 0.65);
+.spark-field--dust .sky-spark,
+.spark-field--far .sky-spark {
+  animation: none;
 }
 
-.sky-spark--far {
-  filter: drop-shadow(0 0 calc(3px + var(--ignition, 0) * 8px) rgba(200, 242, 53, 0.35));
+.spark-field--dust .sky-spark {
+  opacity: 0.55;
+}
+
+html.is-ignited .spark-field--far .sky-spark,
+html.is-ignited .spark-field--dust .sky-spark:nth-child(5n) {
+  animation: twinkle var(--twinkle-duration, 6s) ease-in-out infinite;
+  animation-delay: var(--twinkle-delay, 0s);
+}
+
+html:not(.is-ignited) .star-veil--dense,
+html:not(.is-ignited) .star-veil--finale {
+  visibility: hidden;
 }
 
 .sky-spark--mid {
-  filter: drop-shadow(0 0 calc(6px + var(--ignition, 0) * 14px + var(--fuel, 0) * 8px) rgba(200, 242, 53, 0.5));
+  filter: drop-shadow(0 0 12px rgba(200, 242, 53, 0.5));
 }
 
 .sky-spark--near {
-  filter: drop-shadow(0 0 calc(10px + var(--ignition, 0) * 18px + var(--finale, 0) * 12px) rgba(200, 242, 53, 0.7));
+  filter: drop-shadow(0 0 16px rgba(200, 242, 53, 0.65));
+}
+
+html:not(.is-fueled) .fuel-stream,
+html:not(.is-fueled) .fuel-drip,
+html:not(.is-fueled) .about-spark,
+html:not(.is-fueled) .fuel-spark--meet,
+html:not(.is-fueled) .portrait-halo {
+  animation-play-state: paused;
 }
 
 .sky-spark--spark { color: var(--spark); }
@@ -468,8 +517,9 @@ html.has-magnetic-cursor * {
   justify-content: space-between;
   gap: var(--space-sm);
   padding: 1rem clamp(1rem, 3vw, 2rem);
-  backdrop-filter: blur(14px);
-  background: rgba(14, 18, 24, 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  background: rgba(14, 18, 24, 0.72);
   border-bottom: 1px solid transparent;
   transition: border-color 0.3s ease;
 }
@@ -536,7 +586,6 @@ html.has-magnetic-cursor * {
     clamp(4rem, 10vh, 7rem);
   overflow: hidden;
   text-align: center;
-  perspective: 900px;
 }
 
 .hero-stage {
@@ -554,7 +603,6 @@ html.has-magnetic-cursor * {
   margin-bottom: 0.5rem;
   display: grid;
   place-items: center;
-  will-change: transform;
 }
 
 .wordmark-reveal .hero-logo {
@@ -631,7 +679,6 @@ html.has-magnetic-cursor * {
   translate: 0 0;
   transition: opacity 0.8s ease 0.12s;
   transform: translate3d(0, calc(var(--parallax-mid, 0px) * 0.35), 0);
-  will-change: transform;
 }
 
 .hero-headline span {
@@ -645,7 +692,6 @@ html.has-magnetic-cursor * {
     calc(var(--pointer-y, 0) * 20px),
     0
   );
-  will-change: transform;
 }
 
 .hero-lede {
@@ -687,7 +733,6 @@ html.has-magnetic-cursor * {
   padding: 0.9rem 1.35rem;
   border-radius: var(--radius-pill);
   font-weight: 600;
-  will-change: transform;
   transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.25s ease;
 }
 
@@ -752,9 +797,8 @@ html.has-magnetic-cursor * {
   inset: 6% 4% 18%;
   border-radius: 46% 46% 28% 28%;
   background:
-    radial-gradient(circle at 50% 20%, rgba(200, 242, 53, 0.45), transparent 55%),
-    radial-gradient(circle at 70% 70%, rgba(75, 124, 240, 0.5), transparent 60%);
-  filter: blur(18px);
+    radial-gradient(circle at 50% 20%, rgba(200, 242, 53, 0.42), rgba(200, 242, 53, 0.12) 42%, transparent 68%),
+    radial-gradient(circle at 70% 70%, rgba(75, 124, 240, 0.46), rgba(75, 124, 240, 0.12) 48%, transparent 72%);
   animation: pulse 6s ease-in-out infinite;
   opacity: calc(0.15 + var(--fuel, 0) * 1.05);
   transform: scale(calc(0.82 + var(--fuel, 0) * 0.28));
@@ -776,7 +820,7 @@ html.has-magnetic-cursor * {
   color: var(--spark);
   opacity: var(--fuel, 0);
   transform: scale(calc(0.35 + var(--fuel, 0) * 1.05));
-  filter: drop-shadow(0 0 calc(12px + var(--fuel, 0) * 36px) rgba(200, 242, 53, 0.85));
+  filter: drop-shadow(0 0 22px rgba(200, 242, 53, 0.75));
   transition: opacity 0.3s ease, transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
   animation: pulse 3.2s ease-in-out infinite;
 }
@@ -812,7 +856,6 @@ html.has-magnetic-cursor * {
   height: 100%;
   transform: rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
   transform-style: preserve-3d;
-  will-change: transform;
 }
 
 .portrait-frame img {
@@ -841,7 +884,6 @@ html.has-magnetic-cursor * {
       rgba(75, 124, 240, 0.18) 42%,
       transparent 72%
     );
-  filter: blur(2px);
   z-index: 0;
   animation: pulse 6s ease-in-out infinite;
   opacity: calc(0.4 + var(--fuel, 0) * 0.6);
@@ -1323,20 +1365,18 @@ html.has-magnetic-cursor * {
   position: absolute;
   left: 50%;
   top: 42%;
-  width: min(85vw, 560px);
-  height: min(85vw, 560px);
-  translate: -50% -50%;
+  width: min(90vw, 640px);
+  height: min(90vw, 640px);
   border-radius: 50%;
   background:
-    radial-gradient(circle, rgba(200, 242, 53, 0.14) 0%, transparent 58%),
-    radial-gradient(circle at 60% 45%, rgba(75, 124, 240, 0.16) 0%, transparent 62%);
+    radial-gradient(circle, rgba(200, 242, 53, 0.16) 0%, rgba(200, 242, 53, 0.05) 40%, transparent 66%),
+    radial-gradient(circle at 60% 45%, rgba(75, 124, 240, 0.18) 0%, rgba(75, 124, 240, 0.05) 44%, transparent 68%);
   opacity: calc(var(--finale, 0) * 0.65);
-  filter: blur(10px);
   pointer-events: none;
   transform:
     translate3d(
-      calc(var(--pointer-x, 0) * 36px),
-      calc(var(--contact-parallax, 0px) + var(--pointer-y, 0) * 24px),
+      calc(-50% + var(--pointer-x, 0) * 36px),
+      calc(-50% + var(--contact-parallax, 0px) + var(--pointer-y, 0) * 24px),
       0
     )
     scale(calc(0.7 + var(--finale, 0) * 0.4));
@@ -1352,13 +1392,13 @@ html.has-magnetic-cursor * {
 }
 
 .contact-spark {
-  width: calc(2.5rem + var(--finale, 0) * 1.1rem);
-  height: calc(2.5rem + var(--finale, 0) * 1.1rem);
+  width: 2.5rem;
+  height: 2.5rem;
   color: var(--spark);
   margin-bottom: 0.25rem;
-  filter: drop-shadow(0 0 calc(14px + var(--finale, 0) * 16px) rgba(200, 242, 53, 0.45));
+  filter: drop-shadow(0 0 18px rgba(200, 242, 53, 0.55));
   animation: pulse 5s ease-in-out infinite;
-  transform: scale(calc(0.9 + var(--finale, 0) * 0.2));
+  scale: calc(1 + var(--finale, 0) * 0.44);
 }
 
 .footer {
@@ -1521,7 +1561,6 @@ html.has-magnetic-cursor * {
   pointer-events: none;
   mix-blend-mode: screen;
   animation: chapter-flash 1.8s ease-out forwards;
-  filter: blur(28px);
 }
 
 .chapter-wipe--spark {
@@ -1553,7 +1592,6 @@ html.has-magnetic-cursor * {
   border-radius: 999px;
   transform-origin: left center;
   animation: streak-fly 0.75s ease-out forwards;
-  filter: blur(0.2px);
 }
 
 .scroll-streak--spark {
@@ -1594,7 +1632,6 @@ html.has-magnetic-cursor * {
     rgba(200, 242, 53, 0.85) 55%,
     rgba(75, 124, 240, 0.55) 100%
   );
-  filter: blur(0.5px);
   box-shadow: 0 0 14px rgba(200, 242, 53, 0.45);
   transform-origin: top center;
   animation: fuel-stream-flow 1.8s ease-in-out infinite alternate;
@@ -1652,12 +1689,20 @@ html.has-magnetic-cursor * {
   opacity: 1;
 }
 
+.hero-cta-wrap:hover .orbit-sparks-arm,
+.hero-cta-wrap:focus-within .orbit-sparks-arm,
+.contact-cta-wrap:hover .orbit-sparks-arm,
+.contact-cta-wrap:focus-within .orbit-sparks-arm {
+  animation-play-state: running;
+}
+
 .orbit-sparks-arm {
   position: absolute;
   inset: 0;
   display: grid;
   place-items: start center;
   animation: orbit-spin 6.5s linear infinite;
+  animation-play-state: paused;
   scale: var(--orbit-radius);
 }
 
@@ -1849,6 +1894,11 @@ html.has-magnetic-cursor * {
     opacity: 0.9;
   }
 
+  .hero-cta-wrap .orbit-sparks-arm,
+  .contact-cta-wrap .orbit-sparks-arm {
+    animation-play-state: running;
+  }
+
   .mobile-scroll-spark {
     display: block;
     position: fixed;
@@ -1906,7 +1956,7 @@ html.has-magnetic-cursor * {
   }
 
   html.has-magnetic-cursor,
-  html.has-magnetic-cursor * {
+  html.has-magnetic-cursor :is(a, button, label, summary, [role='button'], [data-magnetic]) {
     cursor: auto !important;
   }
 
@@ -2068,13 +2118,12 @@ html.has-magnetic-cursor * {
 
 .work-frame-halo {
   position: absolute;
-  inset: 6% -6%;
+  inset: -4% -8%;
   z-index: 0;
   border-radius: 40%;
   background:
-    radial-gradient(ellipse at 50% 45%, rgba(75, 124, 240, 0.32), transparent 62%),
-    radial-gradient(ellipse at 42% 62%, rgba(200, 242, 53, 0.16), transparent 58%);
-  filter: blur(28px);
+    radial-gradient(ellipse at 50% 45%, rgba(75, 124, 240, 0.28) 0%, rgba(75, 124, 240, 0.08) 42%, transparent 68%),
+    radial-gradient(ellipse at 42% 62%, rgba(200, 242, 53, 0.14) 0%, rgba(200, 242, 53, 0.04) 46%, transparent 70%);
   pointer-events: none;
 }
 
@@ -2192,7 +2241,7 @@ html.has-magnetic-cursor * {
 
 @media (pointer: coarse) {
   html.has-magnetic-cursor,
-  html.has-magnetic-cursor * {
+  html.has-magnetic-cursor :is(a, button, label, summary, [role='button'], [data-magnetic]) {
     cursor: auto !important;
   }
 

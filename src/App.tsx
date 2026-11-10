@@ -1,4 +1,4 @@
-import { useEffect, useState, type CSSProperties, type ReactNode } from 'react'
+import { useEffect, useState, type ReactNode } from 'react'
 import alexis from './assets/brand/alexis-cutout.png'
 import wordmark from './assets/brand/wordmark.svg'
 import { ChapterWipe } from './components/ChapterWipe'
@@ -15,8 +15,8 @@ import { useChapterPulse } from './hooks/useChapterPulse'
 import { useRoute } from './hooks/useRoute'
 import { WorkPage } from './pages/WorkPage'
 import { useMagnetic } from './hooks/useMagnetic'
-import { useMotionPointer } from './hooks/useMotionPointer'
 import { useMobileMoments } from './hooks/useMobileMoments'
+import { usePointerEngine } from './hooks/usePointerEngine'
 import { useScrollScene } from './hooks/useScrollScene'
 import { useScrollStreaks } from './hooks/useScrollStreaks'
 import './App.css'
@@ -45,7 +45,7 @@ function App() {
   const isWork = path === '/work' || path === '/work-v2'
   useScrollScene(!isWork)
   const mobileSparkRef = useMobileMoments(path)
-  const pointer = useMotionPointer(0.28)
+  usePointerEngine()
   const { pulse, active } = useChapterPulse()
   const streaks = useScrollStreaks()
   const [ready, setReady] = useState(false)
@@ -61,20 +61,9 @@ function App() {
       : 'Spark Fuel | Small Business Research, Design & Strategy'
   }, [isWork])
 
-  const tiltX = pointer.y * -10
-  const tiltY = pointer.x * 12
-
   return (
     <div
       className={`site ${ready ? 'is-ready' : ''} chapter-${active}${isWork ? ' site--work' : ''}`}
-      style={
-        {
-          '--pointer-x': String(pointer.x),
-          '--pointer-y': String(pointer.y),
-          '--tilt-x': `${tiltX}deg`,
-          '--tilt-y': `${tiltY}deg`,
-        } as CSSProperties
-      }
     >
       <div ref={mobileSparkRef} className="mobile-scroll-spark" aria-hidden="true" />
 

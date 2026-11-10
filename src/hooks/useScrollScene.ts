@@ -20,8 +20,17 @@ export function useScrollScene(enabled: boolean) {
   useLayoutEffect(() => {
     const root = document.documentElement
     const phoneQuery = window.matchMedia(PHONE_QUERY)
+    const reduceQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
     const written = new Map<string, string>()
     let frame = 0
+    let ignited = false
+    let fueled = false
+
+    const setFlag = (name: 'is-ignited' | 'is-fueled', on: boolean, current: boolean) => {
+      if (current === on) return current
+      root.classList.toggle(name, on)
+      return on
+    }
 
     const setVar = (name: string, value: string) => {
       if (written.get(name) === value) return
@@ -71,6 +80,8 @@ export function useScrollScene(enabled: boolean) {
       }
 
       apply(ignition, fuel, finale, scrollY * -0.28, scrollY * 0.08, scrollY * 0.05)
+      ignited = setFlag('is-ignited', ignition > 0.05 || finale > 0.02, ignited)
+      fueled = setFlag('is-fueled', fuel > 0.04, fueled)
     }
 
     const onScroll = () => {
@@ -82,13 +93,12 @@ export function useScrollScene(enabled: boolean) {
       window.removeEventListener('scroll', onScroll)
       cancelAnimationFrame(frame)
 
-      if (!enabled) {
-        apply(0.42, 0.22, 0.08, 0, 0, 0)
-        return
-      }
-
-      if (phoneQuery.matches) {
-        apply(0.72, 0.85, 0.45, 0, 0, 0)
+      if (!enabled || phoneQuery.matches || reduceQuery.matches) {
+        ignited = setFlag('is-ignited', true, ignited)
+        fueled = setFlag('is-fueled', true, fueled)
+        if (!enabled) apply(0.42, 0.22, 0.08, 0, 0, 0)
+        else if (phoneQuery.matches) apply(0.72, 0.85, 0.45, 0, 0, 0)
+        else apply(0.72, 0.55, 0.2, 0, 0, 0)
         return
       }
 
@@ -105,6 +115,8 @@ export function useScrollScene(enabled: boolean) {
       window.removeEventListener('scroll', onScroll)
       window.removeEventListener('resize', connect)
       phoneQuery.removeEventListener('change', connect)
+      root.classList.remove('is-ignited')
+      root.classList.remove('is-fueled')
     }
   }, [enabled])
 }
