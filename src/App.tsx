@@ -13,6 +13,7 @@ import { SparkMark } from './components/SparkMark'
 import { WordmarkReveal } from './components/WordmarkReveal'
 import { useChapterPulse } from './hooks/useChapterPulse'
 import { useRoute } from './hooks/useRoute'
+import { ContactPage } from './pages/ContactPage'
 import { WorkPage } from './pages/WorkPage'
 import { useMagnetic } from './hooks/useMagnetic'
 import { useMobileMoments } from './hooks/useMobileMoments'
@@ -43,7 +44,8 @@ function MagneticLink({
 function App() {
   const { path, go } = useRoute()
   const isWork = path === '/work' || path === '/work-v2'
-  useScrollScene(!isWork)
+  const isContact = path === '/contact'
+  useScrollScene(!isWork && !isContact)
   const mobileSparkRef = useMobileMoments(path)
   usePointerEngine()
   const { pulse, active } = useChapterPulse()
@@ -58,12 +60,14 @@ function App() {
   useEffect(() => {
     document.title = isWork
       ? 'Work | Spark Fuel'
-      : 'Spark Fuel | Small Business Research, Design & Strategy'
-  }, [isWork])
+      : isContact
+        ? 'Contact | Spark Fuel'
+        : 'Spark Fuel | Small Business Research, Design & Strategy'
+  }, [isWork, isContact])
 
   return (
     <div
-      className={`site ${ready ? 'is-ready' : ''} chapter-${active}${isWork ? ' site--work' : ''}`}
+      className={`site ${ready ? 'is-ready' : ''} chapter-${active}${isWork ? ' site--work' : ''}${isContact ? ' site--contact' : ''}`}
     >
       <div ref={mobileSparkRef} className="mobile-scroll-spark" aria-hidden="true" />
 
@@ -108,7 +112,14 @@ function App() {
           >
             Work
           </a>
-          <a ref={navCtaRef} href="/#contact" className="nav-cta" data-magnetic onClick={go('/#contact')}>
+          <a
+            ref={navCtaRef}
+            href="/contact"
+            className={`nav-cta${isContact ? ' is-current' : ''}`}
+            aria-current={isContact ? 'page' : undefined}
+            data-magnetic
+            onClick={go('/contact')}
+          >
             Let’s talk
           </a>
         </nav>
@@ -116,6 +127,8 @@ function App() {
 
       {isWork ? (
         <WorkPage />
+      ) : isContact ? (
+        <ContactPage />
       ) : (
         <main>
         <section className="hero" id="top">
@@ -132,7 +145,7 @@ function App() {
             <div className="hero-actions">
               <div className="hero-cta-wrap">
                 <OrbitSparks />
-                <a className="btn btn-spark btn-lg" href="#contact" data-magnetic>
+                <a className="btn btn-spark btn-lg" href="/contact" data-magnetic onClick={go('/contact')}>
                   Start a project
                 </a>
               </div>
@@ -200,12 +213,8 @@ function App() {
             </p>
             <div className="contact-cta-wrap">
               <OrbitSparks />
-              <a
-                className="btn btn-spark btn-lg"
-                href="mailto:hello@sparkfuel.co"
-                data-magnetic
-              >
-                hello@sparkfuel.co
+              <a className="btn btn-spark btn-lg" href="/contact" data-magnetic onClick={go('/contact')}>
+                Send a message
               </a>
             </div>
           </div>

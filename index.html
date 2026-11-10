@@ -86,7 +86,6 @@
               "url": "https://sparkfuel.co/favicon.svg"
             },
             "image": "https://sparkfuel.co/og-image.jpg",
-            "email": "hello@sparkfuel.co",
             "description": "Your small business copilot for research, design, and strategy: from first idea to full launch.",
             "slogan": "Your small business copilot.",
             "founder": { "@id": "https://sparkfuel.co/#alexis" },
@@ -164,7 +163,7 @@
             },
             "contactPoint": {
               "@type": "ContactPoint",
-              "email": "hello@sparkfuel.co",
+              "url": "https://sparkfuel.co/contact",
               "contactType": "customer service",
               "availableLanguage": "English"
             }
@@ -176,7 +175,6 @@
             "jobTitle": "Founder",
             "worksFor": { "@id": "https://sparkfuel.co/#organization" },
             "url": "https://sparkfuel.co/#about",
-            "email": "hello@sparkfuel.co",
             "description": "Founder of Spark Fuel, a research, design, and strategy partner for small businesses."
           },
           {
@@ -215,12 +213,12 @@
           <li>Campaigns &amp; Content</li>
           <li>Branded Merch &amp; Materials</li>
         </ul>
-        <p>
-          Contact:
-          <a href="mailto:hello@sparkfuel.co" style="color: #c8f235"
-            >hello@sparkfuel.co</a
-          >
-        </p>
+        <form action="/api/contact" method="post" style="display: grid; gap: 0.75rem; margin-top: 1.5rem">
+          <label>Name<br /><input name="name" required style="width: 100%; margin-top: 0.25rem" /></label>
+          <label>Email<br /><input name="email" type="email" required style="width: 100%; margin-top: 0.25rem" /></label>
+          <label>Message<br /><textarea name="message" required rows="5" style="width: 100%; margin-top: 0.25rem"></textarea></label>
+          <button type="submit" style="justify-self: start; padding: 0.7rem 1.1rem; border: 0; border-radius: 999px; background: #c8f235; color: #0e1218; font-weight: 700">Send it</button>
+        </form>
       </main>
     </noscript>
     <script type="module" src="/src/main.tsx"></script>
