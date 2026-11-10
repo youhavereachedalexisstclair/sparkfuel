@@ -2198,6 +2198,235 @@ html.has-magnetic-cursor * {
   }
 }
 
+.work-v2-stage {
+  display: grid;
+  grid-template-columns: minmax(200px, 240px) minmax(0, 1fr);
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: center;
+  width: min(1240px, calc(100% - clamp(2rem, 6vw, 4rem)));
+  margin: 0 auto;
+  min-height: calc(100svh - 12rem);
+  padding: clamp(1.5rem, 4vh, 2.5rem) 0 clamp(2rem, 6vh, 3.5rem);
+}
+
+.work-v2-copy h1 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 5vw, 4rem);
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+}
+
+.work-v2-copy h1 span {
+  display: block;
+  color: var(--spark);
+}
+
+.work-v2-lede {
+  margin: 1rem 0 0;
+  max-width: 18rem;
+  font-size: 1.05rem;
+  line-height: 1.55;
+  color: var(--mist-dim);
+}
+
+.work-v2-list {
+  list-style: none;
+  margin: 1.75rem 0 0;
+  padding: 0;
+}
+
+.work-v2-piece {
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto;
+  column-gap: 0.85rem;
+  row-gap: 0.1rem;
+  padding: 0.95rem 0.15rem;
+  border: 0;
+  border-top: 1px solid var(--line);
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  opacity: 0.62;
+  transition: opacity 0.2s ease;
+}
+
+.work-v2-piece.is-active,
+.work-v2-piece:hover {
+  opacity: 1;
+}
+
+.work-v2-list li:last-child .work-v2-piece {
+  border-bottom: 1px solid var(--line);
+}
+
+.work-v2-piece-index {
+  grid-row: 1 / span 2;
+  align-self: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--spark);
+}
+
+.work-v2-piece-title {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+.work-v2-piece-meta {
+  color: var(--mist-dim);
+  font-size: 0.92rem;
+}
+
+.work-v2-back {
+  margin: 1.25rem 0 0;
+  font-size: 0.92rem;
+}
+
+.work-v2-back a {
+  color: var(--mist-dim);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.work-v2-back a:hover {
+  color: var(--spark);
+}
+
+.work-v2-stage-frame {
+  position: relative;
+  min-width: 0;
+}
+
+.work-v2-halo {
+  position: absolute;
+  inset: 6% -6%;
+  z-index: 0;
+  border-radius: 40%;
+  background:
+    radial-gradient(ellipse at 50% 45%, rgba(75, 124, 240, 0.32), transparent 62%),
+    radial-gradient(ellipse at 42% 62%, rgba(200, 242, 53, 0.16), transparent 58%);
+  filter: blur(28px);
+  pointer-events: none;
+}
+
+.work-v2-frame {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid rgba(232, 237, 245, 0.16);
+  border-radius: 18px;
+  background: #10151c;
+  box-shadow:
+    0 28px 70px rgba(0, 0, 0, 0.45),
+    0 0 0 1px rgba(200, 242, 53, 0.04),
+    0 0 80px rgba(75, 124, 240, 0.12);
+}
+
+.work-v2-chrome {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.7rem 0.85rem;
+  background: rgba(8, 11, 16, 0.92);
+  border-bottom: 1px solid var(--line);
+}
+
+.work-v2-dots {
+  display: inline-flex;
+  gap: 0.35rem;
+}
+
+.work-v2-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+}
+
+.work-v2-dot--spark { background: var(--spark); }
+.work-v2-dot--signal { background: var(--signal); }
+.work-v2-dot--mist { background: rgba(232, 237, 245, 0.45); }
+
+.work-v2-url {
+  flex: 1;
+  min-width: 0;
+  padding: 0.28rem 0.75rem;
+  border-radius: var(--radius-pill);
+  background: rgba(232, 237, 245, 0.06);
+  color: var(--mist-dim);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.work-v2-open {
+  color: var(--mist);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.work-v2-open:hover {
+  color: var(--spark);
+}
+
+.work-v2-screen {
+  position: relative;
+  overflow: hidden;
+  background: #07070a;
+}
+
+.work-v2-loading {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  color: var(--mist-dim);
+  font-size: 0.92rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+
+.work-v2-screen iframe {
+  display: block;
+  border: 0;
+  background: #07070a;
+}
+
+@media (max-width: 900px) {
+  .work-v2-stage {
+    grid-template-columns: 1fr;
+    align-items: start;
+    min-height: 0;
+    padding-top: 1.25rem;
+  }
+
+  .work-v2-copy h1 span {
+    display: inline;
+  }
+
+  .work-v2-lede {
+    max-width: 36rem;
+  }
+}
+
 @media (pointer: coarse) {
   html.has-magnetic-cursor,
   html.has-magnetic-cursor * {

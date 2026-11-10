@@ -14,6 +14,7 @@ import { WordmarkReveal } from './components/WordmarkReveal'
 import { useChapterPulse } from './hooks/useChapterPulse'
 import { useRoute } from './hooks/useRoute'
 import { WorkPage } from './pages/WorkPage'
+import { WorkV2Page } from './pages/WorkV2Page'
 import { useMagnetic } from './hooks/useMagnetic'
 import { useMotionPointer } from './hooks/useMotionPointer'
 import { useMobileMoments } from './hooks/useMobileMoments'
@@ -43,7 +44,9 @@ function MagneticLink({
 function App() {
   const { path, go } = useRoute()
   const isWork = path === '/work'
-  useScrollScene(!isWork)
+  const isWorkV2 = path === '/work-v2'
+  const isWorkSurface = isWork || isWorkV2
+  useScrollScene(!isWorkSurface)
   const mobileSparkRef = useMobileMoments(path)
   const pointer = useMotionPointer(0.28)
   const { pulse, active } = useChapterPulse()
@@ -56,17 +59,19 @@ function App() {
   }, [])
 
   useEffect(() => {
-    document.title = isWork
-      ? 'Work | Spark Fuel'
-      : 'Spark Fuel | Small Business Research, Design & Strategy'
-  }, [isWork])
+    document.title = isWorkV2
+      ? 'Work V2 | Spark Fuel'
+      : isWork
+        ? 'Work | Spark Fuel'
+        : 'Spark Fuel | Small Business Research, Design & Strategy'
+  }, [isWork, isWorkV2])
 
   const tiltX = pointer.y * -10
   const tiltY = pointer.x * 12
 
   return (
     <div
-      className={`site ${ready ? 'is-ready' : ''} chapter-${active}${isWork ? ' site--work' : ''}`}
+      className={`site ${ready ? 'is-ready' : ''} chapter-${active}${isWorkSurface ? ' site--work' : ''}`}
       style={
         {
           '--pointer-x': String(pointer.x),
@@ -86,7 +91,7 @@ function App() {
         <div className="glow glow-c" />
         <div className="glow glow-ignite" />
         <div className="pointer-bloom" />
-        {isWork ? null : <ChapterWipe pulse={pulse} />}
+        {isWorkSurface ? null : <ChapterWipe pulse={pulse} />}
         <div className="star-veil star-veil--base" />
         <div className="star-veil star-veil--dense" />
         <div className="star-veil star-veil--finale" />
@@ -127,6 +132,8 @@ function App() {
 
       {isWork ? (
         <WorkPage />
+      ) : isWorkV2 ? (
+        <WorkV2Page />
       ) : (
         <main>
         <section className="hero" id="top">
