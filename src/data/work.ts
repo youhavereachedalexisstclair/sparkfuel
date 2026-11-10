@@ -16,7 +16,7 @@ export const workPieces: WorkPiece[] = [
     id: 'saint-thomas',
     title: 'Saint Thomas the Apostle',
     meta: 'Live site',
-    url: 'https://st-thomas.pages.dev',
+    url: 'https://st-thomas.youhavereachedalexisstclair.workers.dev',
   },
   {
     id: 'black-sheep',
