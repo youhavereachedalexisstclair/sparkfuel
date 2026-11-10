@@ -22,7 +22,7 @@ export function WorkPage() {
             Sites in <span>motion.</span>
           </h1>
           <p className="work-lede">
-            Custom websites, playing here before they go live.
+            Custom websites. Click in and scroll through.
           </p>
           <ol className="work-list">
             {workPieces.map((piece, index) => {
