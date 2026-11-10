@@ -1,10 +1,10 @@
-import { useEffect, useRef, useState, type CSSProperties } from 'react'
+import { useLayoutEffect, useRef, useState } from 'react'
 import { workPieces, type WorkPiece } from '../data/work'
 import { SparkMark } from '../components/SparkMark'
 
-function prefersReducedMotion() {
-  return window.matchMedia('(prefers-reduced-motion: reduce)').matches
-}
+/** Desktop viewport the framed sites lay out at. Wider than their phone breakpoints. */
+const SITE_WIDTH = 1120
+const SITE_HEIGHT = 700
 
 export function WorkPage() {
   const [activeId, setActiveId] = useState(workPieces[0]?.id ?? '')
@@ -55,71 +55,58 @@ export function WorkPage() {
 }
 
 function WorkFrame({ piece }: { piece: WorkPiece }) {
-  const videoRef = useRef<HTMLVideoElement>(null)
-  const [paused, setPaused] = useState(prefersReducedMotion)
+  const frameRef = useRef<HTMLElement>(null)
+  const [scale, setScale] = useState(1)
+  const [loadedUrl, setLoadedUrl] = useState('')
+  const host = new URL(piece.url).host
 
-  useEffect(() => {
-    const video = videoRef.current
-    if (!video) return
-    video.muted = true
-    if (prefersReducedMotion()) {
-      video.pause()
-      setPaused(true)
-      return
-    }
-    const play = video.play()
-    if (play) {
-      play.then(() => setPaused(false)).catch(() => setPaused(true))
-    }
-  }, [piece.src])
+  useLayoutEffect(() => {
+    const frame = frameRef.current
+    if (!frame) return
 
-  const toggle = () => {
-    const video = videoRef.current
-    if (!video) return
-    if (video.paused) {
-      video.play().then(() => setPaused(false)).catch(() => setPaused(true))
-    } else {
-      video.pause()
-      setPaused(true)
+    const update = () => {
+      const width = frame.clientWidth
+      if (width > 0) setScale(width / SITE_WIDTH)
     }
-  }
+
+    update()
+    const observer = new ResizeObserver(update)
+    observer.observe(frame)
+    return () => observer.disconnect()
+  }, [])
 
   return (
     <div className="work-stage-frame">
       <div className="work-frame-halo" aria-hidden="true" />
-      <figure className="work-frame" aria-label={`${piece.title} website preview`}>
+      <figure ref={frameRef} className="work-frame" aria-label={`${piece.title} website`}>
         <div className="work-chrome">
           <span className="work-dots" aria-hidden="true">
             <span className="work-dot work-dot--spark" />
             <span className="work-dot work-dot--signal" />
             <span className="work-dot work-dot--mist" />
           </span>
-          <span className="work-url">{piece.title}</span>
-          <button type="button" className="work-chrome-play" onClick={toggle} data-magnetic>
-            {paused ? 'Play' : 'Pause'}
-          </button>
+          <span className="work-url">{host}</span>
+          <a className="work-chrome-play" href={piece.url} target="_blank" rel="noreferrer">
+            Open
+          </a>
         </div>
-        <div
-          className="work-screen"
-          style={{ '--work-aspect': piece.aspect } as CSSProperties}
-        >
-          <video
-            ref={videoRef}
-            key={piece.src}
-            className="work-frame-video"
-            src={piece.src}
-            poster={piece.poster}
-            muted
-            loop
-            playsInline
-            preload="auto"
-            onClick={toggle}
+        <div className="work-screen" style={{ height: SITE_HEIGHT * scale }}>
+          {loadedUrl === piece.url ? null : <p className="work-loading">Loading site</p>}
+          <iframe
+            key={piece.url}
+            title={piece.title}
+            src={piece.url}
+            onLoad={() => setLoadedUrl(piece.url)}
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: SITE_WIDTH,
+              height: SITE_HEIGHT,
+              transform: `scale(${scale})`,
+              transformOrigin: 'top left',
+            }}
           />
-          {paused ? (
-            <button type="button" className="work-play" onClick={toggle}>
-              Play preview
-            </button>
-          ) : null}
         </div>
       </figure>
     </div>
