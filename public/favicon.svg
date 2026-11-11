@@ -1,4 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
   <rect width="32" height="32" rx="8" fill="#0E1218"/>
-  <path d="M16 6l2.4 7.2H26l-6 4.4 2.3 7.2L16 20.8l-6.3 4 2.3-7.2-6-4.4h7.6L16 6z" fill="#C8F235"/>
+  <g transform="translate(16 16) scale(0.82)" fill="#C8F235">
+    <path d="M0-13 1.7-1.7 13 0 1.7 1.7 0 13-1.7 1.7-13 0-1.7-1.7Z"/>
+    <path transform="rotate(45)" d="M0-8 1.2-1.2 8 0 1.2 1.2 0 8-1.2 1.2-8 0-1.2-1.2Z"/>
+    <circle cx="10" cy="-10" r="1.7"/>
+    <circle cx="-11" cy="9" r="1.15"/>
+  </g>
 </svg>

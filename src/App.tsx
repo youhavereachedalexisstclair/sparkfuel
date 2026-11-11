@@ -9,6 +9,7 @@ import { OrbitSparks } from './components/OrbitSparks'
 import { ScrollStreaks } from './components/ScrollStreaks'
 import { SparkField } from './components/SparkField'
 import { Services } from './components/Services'
+import { BrandIcon } from './components/BrandIcon'
 import { SparkMark } from './components/SparkMark'
 import { WordmarkReveal } from './components/WordmarkReveal'
 import { useChapterPulse } from './hooks/useChapterPulse'
@@ -93,7 +94,7 @@ function App() {
 
       <header className="topbar">
         <a className="topbar-brand" href="/" aria-label="Spark Fuel home" data-magnetic onClick={go('/')}>
-          <SparkMark className="topbar-spark" />
+          <BrandIcon className="topbar-spark" />
           <span>Spark Fuel</span>
         </a>
         <nav className="topbar-nav" aria-label="Primary">

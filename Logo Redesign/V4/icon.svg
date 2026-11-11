@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-18 -18 36 36" fill="none" role="img" aria-label="Spark Fuel icon">
+  <title>Spark Fuel icon</title>
+  <path fill="#C8F235" d="M0-13 1.7-1.7 13 0 1.7 1.7 0 13-1.7 1.7-13 0-1.7-1.7Z"/>
+  <path fill="#C8F235" transform="rotate(45)" d="M0-8 1.2-1.2 8 0 1.2 1.2 0 8-1.2 1.2-8 0-1.2-1.2Z"/>
+  <circle cx="10" cy="-10" r="1.7" fill="#C8F235"/>
+  <circle cx="-11" cy="9" r="1.15" fill="#C8F235"/>
+</svg>
