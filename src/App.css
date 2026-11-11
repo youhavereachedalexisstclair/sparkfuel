@@ -1338,12 +1338,51 @@ html:not(.is-fueled) .portrait-halo {
     font-size: 0.98rem;
   }
 
-  .service-stage {
+  .service-stage,
+  .service-stage[data-tone='signal'] {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 100%;
+    align-items: stretch;
+    gap: 0.75rem;
     min-height: 0;
+    overflow: auto hidden;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    touch-action: pan-x pan-y;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+  }
+
+  .service-stage::-webkit-scrollbar {
+    display: none;
   }
 
   .service-panel {
+    grid-area: auto;
+    min-width: 0;
+    scroll-snap-align: start;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: none;
     padding-right: clamp(1.35rem, 4vw, 2rem);
+    border: 1px solid rgba(200, 242, 53, 0.28);
+    border-radius: 1.75rem;
+    background-color: var(--night-elevated);
+    background-image:
+      radial-gradient(ellipse at 82% 8%, rgba(200, 242, 53, 0.18), transparent 46%),
+      radial-gradient(ellipse at 8% 100%, rgba(75, 124, 240, 0.16), transparent 42%);
+  }
+
+  .service-panel[data-tone='signal'] {
+    border-color: rgba(122, 160, 255, 0.4);
+    background-color: #141a28;
+    background-image:
+      radial-gradient(ellipse at 82% 8%, rgba(75, 124, 240, 0.32), transparent 48%),
+      radial-gradient(ellipse at 12% 100%, rgba(200, 242, 53, 0.12), transparent 42%);
   }
 
   .service-embers {

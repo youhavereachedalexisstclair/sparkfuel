@@ -145,10 +145,42 @@ const services: Service[] = [
   },
 ]
 
+const mobileServicesQuery = '(max-width: 900px)'
+
 export function Services() {
   const [active, setActive] = useState(0)
+  const [stacked, setStacked] = useState(() =>
+    typeof window === 'undefined' ? true : !window.matchMedia(mobileServicesQuery).matches,
+  )
   const fuseRef = useRef<HTMLOListElement>(null)
+  const stageRef = useRef<HTMLDivElement>(null)
+  const activeRef = useRef(0)
+  const programmaticLeft = useRef<number | null>(null)
   const burn = services.length > 1 ? active / (services.length - 1) : 0
+
+  activeRef.current = active
+
+  useEffect(() => {
+    const query = window.matchMedia(mobileServicesQuery)
+    const sync = () => setStacked(!query.matches)
+    sync()
+    query.addEventListener('change', sync)
+    return () => query.removeEventListener('change', sync)
+  }, [])
+
+  const scrollStageTo = (index: number, behavior: ScrollBehavior) => {
+    const stage = stageRef.current
+    if (!stage || window.matchMedia('(min-width: 901px)').matches) return
+    const panel = stage.querySelectorAll<HTMLElement>('.service-panel')[index]
+    if (!panel) return
+    const left = panel.offsetLeft
+    if (Math.abs(stage.scrollLeft - left) < 2) {
+      programmaticLeft.current = null
+      return
+    }
+    programmaticLeft.current = left
+    stage.scrollTo({ left, behavior })
+  }
 
   useEffect(() => {
     const rail = fuseRef.current
@@ -168,6 +200,62 @@ export function Services() {
     return () => observer.disconnect()
   }, [active])
 
+  useEffect(() => {
+    const stage = stageRef.current
+    if (!stage) return
+
+    const nearestIndex = () => {
+      const panels = stage.querySelectorAll<HTMLElement>('.service-panel')
+      const left = stage.scrollLeft
+      let nearest = 0
+      let best = Infinity
+      panels.forEach((panel, index) => {
+        const distance = Math.abs(panel.offsetLeft - left)
+        if (distance < best) {
+          best = distance
+          nearest = index
+        }
+      })
+      return nearest
+    }
+
+    const onScroll = () => {
+      if (window.matchMedia('(min-width: 901px)').matches) return
+      const target = programmaticLeft.current
+      if (target != null) {
+        if (Math.abs(stage.scrollLeft - target) < 2) programmaticLeft.current = null
+        return
+      }
+      const nearest = nearestIndex()
+      if (nearest === activeRef.current) return
+      setActive(nearest)
+    }
+
+    const releaseProgrammatic = () => {
+      programmaticLeft.current = null
+    }
+
+    stage.addEventListener('scroll', onScroll, { passive: true })
+    stage.addEventListener('scrollend', releaseProgrammatic)
+    stage.addEventListener('pointerdown', releaseProgrammatic)
+    window.addEventListener('resize', releaseProgrammatic)
+    if (!window.matchMedia('(min-width: 901px)').matches) {
+      scrollStageTo(activeRef.current, 'auto')
+    }
+    return () => {
+      stage.removeEventListener('scroll', onScroll)
+      stage.removeEventListener('scrollend', releaseProgrammatic)
+      stage.removeEventListener('pointerdown', releaseProgrammatic)
+      window.removeEventListener('resize', releaseProgrammatic)
+    }
+  }, [stacked])
+
+  const choose = (index: number) => {
+    setActive(index)
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    scrollStageTo(index, reduce ? 'auto' : 'smooth')
+  }
+
   const onKeyDown = (event: KeyboardEvent<HTMLOListElement>) => {
     const last = services.length - 1
     let next: number | null = null
@@ -182,7 +270,7 @@ export function Services() {
     }
     if (next == null || next === active) return
     event.preventDefault()
-    setActive(next)
+    choose(next)
     fuseRef.current?.querySelectorAll<HTMLButtonElement>('button')[next]?.focus()
   }
 
@@ -223,7 +311,7 @@ export function Services() {
                   aria-pressed={selected}
                   aria-controls={`service-panel-${index}`}
                   data-magnetic
-                  onClick={() => setActive(index)}
+                  onClick={() => choose(index)}
                 >
                   <span className="service-node" aria-hidden="true">
                     <SparkMark className="service-node-spark" />
@@ -235,16 +323,23 @@ export function Services() {
           })}
         </ol>
 
-        <div className="service-stage" data-tone={services[active]?.tone}>
+        <div
+          ref={stageRef}
+          className="service-stage"
+          data-tone={services[active]?.tone}
+          aria-label={stacked ? undefined : 'Service details'}
+        >
           {services.map((service, index) => {
             const selected = index === active
+            const hidden = stacked && !selected
             return (
               <article
                 key={service.title}
                 id={`service-panel-${index}`}
                 className={`service-panel${selected ? ' is-active' : ''}`}
-                aria-hidden={selected ? undefined : true}
-                inert={selected ? undefined : true}
+                data-tone={service.tone}
+                aria-hidden={hidden ? true : undefined}
+                inert={hidden ? true : undefined}
               >
                 <div className="service-embers" aria-hidden="true">
                   {service.embers.map((spark, sparkIndex) => (
